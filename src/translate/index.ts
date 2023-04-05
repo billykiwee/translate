@@ -8,7 +8,7 @@ const fr = {
   cool: "Trop bien",
 };
 const en = {
-  hello: "Hello {{name}} tu as {{age}} ans et tu es {{job}}",
+  hello: "Hello {{name}} you're {{age}} and your job is {{job}}",
   cool: "Its cool men",
 };
 

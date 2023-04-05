@@ -1,0 +1,4 @@
+{
+  "hello": "Good morning {{name}} you're {{age}} and your job is {{job}}",
+  "null": "Something goes wrong"
+}

@@ -1,27 +1,23 @@
+import { dataLanguages } from "./translations.js";
+
 interface Translate {
   id: string | number;
   variables?: Object;
+  force?: "en" | "fr";
 }
 
-const fr = {
-  hello: "bonjour {{name}} tu as {{age}} ans et tu es {{job}}",
-  cool: "Trop bien",
-};
-const en = {
-  hello: "Hello {{name}} you're {{age}} and your job is {{job}}",
-  cool: "Its cool men",
-};
-
-export function translate(str: Translate) {
-  const variables = str?.variables;
+export function translate(str: Translate): any {
+  const variables: any = str?.variables;
 
   const id = str.id;
 
-  const languages = { en, fr };
+  const { fr, en } = dataLanguages;
+
+  const languages: any = { fr, en };
 
   const userLang = window.navigator.language;
 
-  const defaultLang = userLang.split("-")[0] ?? "en";
+  const defaultLang = str.force ? str.force : userLang.split("-")[0] ?? "en";
 
   const value = languages[defaultLang][id];
 
@@ -34,9 +30,9 @@ export function translate(str: Translate) {
     // Pas de variable
 
     const errorVariables = () => {
-      const mustVariables = [];
+      const mustVariables: string[] = [];
 
-      value.replaceAll(regex, (key) => {
+      value.replaceAll(regex, (key: string) => {
         const variables = key.replaceAll("{{", "").replaceAll("}}", "");
 
         mustVariables.push(variables);
@@ -56,9 +52,9 @@ export function translate(str: Translate) {
       }
     }
 
-    const mustVariables = [];
+    const mustVariables: string[] = [];
 
-    value.replaceAll(regex, (key) => {
+    value.replaceAll(regex, (key: string) => {
       const variables = key.replaceAll("{{", "").replaceAll("}}", "");
 
       mustVariables.push(variables);
@@ -75,7 +71,11 @@ export function translate(str: Translate) {
 
       if (missingElements.length) {
         throw new Error(
-          `The variable " ${missingElements.join(
+          `${
+            extraElements.length
+              ? '" ' + extraElements.join(", ") + ' " does not exit'
+              : ""
+          }  \n The variable " ${missingElements.join(
             ", "
           )} " is not asignable to this translation. It must contains : ${mustVariables.join(
             ", "
@@ -99,12 +99,12 @@ export function translate(str: Translate) {
     }
   }
 
-  const removeBrace = (value) => {
+  const removeBrace = (value: string) => {
     value.replaceAll("{{", "").replaceAll("}}", "");
   };
 
   if (variables) {
-    return value.replaceAll(regex, (key) => {
+    return value.replaceAll(regex, (key: string) => {
       const getVariablesValues = key.replaceAll("{{", "").replaceAll("}}", "");
 
       return variables[getVariablesValues];
@@ -114,11 +114,12 @@ export function translate(str: Translate) {
   }
 }
 
-document.querySelector("html").innerHTML = translate({
+document.querySelector("html")!.innerHTML = translate({
   id: "hello",
   variables: {
-    name: "Billy",
+    name: "Bob",
     age: "12",
     job: "Plombier",
   },
+  force: "fr",
 });

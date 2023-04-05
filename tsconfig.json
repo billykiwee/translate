@@ -1,11 +1,14 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
-    "watch": true,
+    "outDir": "bundle.js",
+    "module": "ES6",
+    "target": "ES2022",
+    "strict": true,
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true,
-    "moduleResolution": "nodenext"
-  }
+    "watch": true,
+    "moduleResolution": "nodenext",
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules"]
 }

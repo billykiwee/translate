@@ -1,17 +1,11 @@
-const fr = {
-    hello: "bonjour {{name}} tu as {{age}} ans et tu es {{job}}",
-    cool: "Trop bien",
-};
-const en = {
-    hello: "Hello {{name}} you're {{age}} and your job is {{job}}",
-    cool: "Its cool men",
-};
+import { dataLanguages } from "./translations.js";
 export function translate(str) {
     const variables = str?.variables;
     const id = str.id;
-    const languages = { en, fr };
+    const { fr, en } = dataLanguages;
+    const languages = { fr, en };
     const userLang = window.navigator.language;
-    const defaultLang = userLang.split("-")[0] ?? "en";
+    const defaultLang = str.force ? str.force : userLang.split("-")[0] ?? "en";
     const value = languages[defaultLang][id];
     const regex = /{{\s*(\w+)\s*}}/g;
     if (!value) {
@@ -44,7 +38,9 @@ export function translate(str) {
             const missingElements = mustVariables.filter((el) => !Object.keys(variables).includes(el));
             const extraElements = Object.keys(variables).filter((el) => !mustVariables.includes(el));
             if (missingElements.length) {
-                throw new Error(`The variable " ${missingElements.join(", ")} " is not asignable to this translation. It must contains : ${mustVariables.join(", ")}`);
+                throw new Error(`${extraElements.length
+                    ? '" ' + extraElements.join(", ") + ' " does not exit'
+                    : ""}  \n The variable " ${missingElements.join(", ")} " is not asignable to this translation. It must contains : ${mustVariables.join(", ")}`);
             }
             if (extraElements.length) {
                 throw new Error(`The variable " ${extraElements.join(", ")} " is not asignable to this translation. It must contains : ${mustVariables.join(", ")}`);
@@ -73,8 +69,9 @@ export function translate(str) {
 document.querySelector("html").innerHTML = translate({
     id: "hello",
     variables: {
-        name: "Billy",
+        name: "Bob",
         age: "12",
         job: "Plombier",
     },
+    force: "fr",
 });

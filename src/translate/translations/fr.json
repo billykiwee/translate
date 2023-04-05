@@ -1,4 +1,0 @@
-{
-  "hello": "Bonjour {{name}} tu as {{age}} and your job is {{job}}",
-  "null": "Quelque chose à planté !"
-}

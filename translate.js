@@ -1,9 +1,9 @@
 import fs from "fs";
 import translate from "translate-google";
-
 const source = fs.readFileSync("./src/translate/en.json", "utf-8");
 
 const placeholderRegex = /\{\{([^\}]+)\}\}/g;
+const keyRegex = /"([\w-]+)":/g;
 
 const placeholders = [];
 
@@ -15,26 +15,28 @@ const sourceWithPlaceholders = source.replace(
   }
 );
 
-const languages = ["fr", "es", "ru"];
+const languages = ["es", "fr", "de"];
 
-fs.mkdirSync("./translations");
+if (!fs.existsSync("./translations")) {
+  fs.mkdirSync("./translations");
+}
 
 for (let i = 0; i < languages.length; i++) {
-  translate(sourceWithPlaceholders, { to: languages[i] })
-    .then((targetWithoutPlaceholders) => {
-      const target = targetWithoutPlaceholders.replace(
-        placeholderRegex,
-        (_, index) => {
-          return `{{${placeholders.splice(0, 1)}}}`;
-        }
-      );
+  const target = sourceWithPlaceholders.replace(
+    placeholderRegex,
+    (_, index) => {
+      return `{{${placeholders.splice(0, 1)}}}`;
+    }
+  );
 
+  translate(target, { to: languages[i] })
+    .then((targetWithoutPlaceholders) => {
       fs.writeFileSync(
         `translations/${languages[i]}.json`,
-        JSON.stringify(target, null, 2)
+        targetWithoutPlaceholders
       );
 
-      console.log("La traduction est terminée.");
+      console.log(`La traduction ${languages[i]} est terminée.`);
     })
     .catch(function (err) {
       console.error("Une erreur est survenue lors de la traduction :", err);

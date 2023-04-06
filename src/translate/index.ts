@@ -1,9 +1,9 @@
-import { dataLanguages } from "./translations.js";
+import { config, dataLanguages } from "./translations.js";
 
 interface Translate {
   id: string | number;
   variables?: Object;
-  force?: "en" | "fr";
+  language?: "en" | "fr" | "es";
 }
 
 export function translate(str: Translate): any {
@@ -11,13 +11,13 @@ export function translate(str: Translate): any {
 
   const id = str.id;
 
-  const { fr, en } = dataLanguages;
-
-  const languages: any = { fr, en };
+  const languages: any = { ...dataLanguages };
 
   const userLang = window.navigator.language;
 
-  const defaultLang = str.force ? str.force : userLang.split("-")[0] ?? "en";
+  const defaultLang = str.language
+    ? str.language
+    : userLang.split("-")[0] ?? config.defaultLang;
 
   const value = languages[defaultLang][id];
 
@@ -118,8 +118,6 @@ document.querySelector("html")!.innerHTML = translate({
   id: "hello",
   variables: {
     name: "Bob",
-    age: "12",
-    job: "Plombier",
   },
-  force: "fr",
+  language: "fr",
 });

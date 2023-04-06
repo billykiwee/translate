@@ -1,4 +1,6 @@
 {
-  "hello": "Good morning {{name}} {{age}} and your job is {{job}}",
-  "cool": "Something goes wrong"
+  "hello": "Good morning {{name}} you're {{age}} and your job is {{job}}",
+  "cool": "Something goes wrong",
+  "why": "why",
+  "because": "because of you"
 }

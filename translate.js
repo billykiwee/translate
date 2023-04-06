@@ -1,19 +1,11 @@
 import fs from "fs";
 import translate from "translate-google";
+
 const source = fs.readFileSync("./src/translate/en.json", "utf-8");
 
-const placeholderRegex = /\{\{([^\}]+)\}\}/g;
-const keyRegex = /"([\w-]+)":/g;
-
-const placeholders = [];
-
-const sourceWithPlaceholders = source.replace(
-  placeholderRegex,
-  (match, placeholder) => {
-    placeholders.push(placeholder);
-    return "{{" + placeholder + "}}";
-  }
-);
+const sourceWithPlaceholders = source
+  .replaceAll("{{", "[[")
+  .replaceAll("}}", "]]");
 
 const languages = ["es", "fr", "de"];
 
@@ -22,18 +14,17 @@ if (!fs.existsSync("./translations")) {
 }
 
 for (let i = 0; i < languages.length; i++) {
-  const target = sourceWithPlaceholders.replace(
-    placeholderRegex,
-    (_, index) => {
-      return `{{${placeholders.splice(0, 1)}}}`;
-    }
-  );
+  const obj = JSON.parse(sourceWithPlaceholders);
 
-  translate(target, { to: languages[i] })
-    .then((targetWithoutPlaceholders) => {
+  translate(obj, {
+    to: "fr", //languages[i],
+  })
+    .then((translated) => {
+      const values = JSON.parse(translated);
+
       fs.writeFileSync(
         `translations/${languages[i]}.json`,
-        targetWithoutPlaceholders
+        JSON.stringify(values, null, 2)
       );
 
       console.log(`La traduction ${languages[i]} est terminée.`);

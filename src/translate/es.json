@@ -1,0 +1,6 @@
+{
+  "hello": "Buen día {{name}} estoy {{age}} y tu trabajo es {{job}}",
+  "cool": "Algo va mal",
+  "why": "por qué",
+  "because": "gracias a ti"
+}

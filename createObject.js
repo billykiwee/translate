@@ -1,15 +1,70 @@
 import fs from "fs";
+import prettier from "prettier";
 
-const enJson = fs.readFileSync("./src/translate/translations/en.json");
-const frJson = fs.readFileSync("./src/translate/translations/fr.json");
+// Chemin du dossier dont vous voulez récupérer les noms de fichiers
+const path = "./src/translate";
 
-const en = JSON.parse(enJson);
-const fr = JSON.parse(frJson);
+const files = [];
 
-const data = { en, fr };
+// Lecture du dossier
+fs.readdir(path, (err, fichiers) => {
+  if (err) {
+    console.error("Erreur lors de la lecture du dossier :", err);
+    return;
+  }
 
-const jsData = `export const dataLanguages = ${JSON.stringify(data, null, 2)};`;
+  const config = JSON.parse(
+    fs.readFileSync("src/translate/translate.config.json")
+  );
 
-fs.writeFileSync("./src/translate/translations.ts", jsData);
+  const DATA = [];
 
-console.log("Le fichier a été créé avec succès.");
+  fichiers
+    .filter((e) => e.includes(".json") && !e.includes(".config"))
+    .map((file) => {
+      const languagesJSON = fs.readFileSync(`src/translate/${file}`);
+      const getFIleData = {
+        [file.split(".json")[0]]: JSON.parse(languagesJSON),
+      };
+
+      DATA.push(getFIleData);
+
+      function mergeJsonObjects(DATA) {
+        let mergedObject = {};
+
+        DATA.forEach((jsonObject) => {
+          const key = Object.keys(jsonObject)[0];
+          const value = jsonObject[key];
+
+          mergedObject[key] = value;
+        });
+
+        return mergedObject;
+      }
+
+      const jsData = `
+
+      interface Trad {
+        [string] : string;
+      }
+      
+      export const config = ${JSON.stringify(config)};
+    export const dataLanguages: Trad = ${JSON.stringify(
+      mergeJsonObjects(DATA)
+    )};
+`;
+
+      const mergedObject = mergeJsonObjects(DATA);
+
+      const formattedJsData = prettier.format(jsData, {
+        parser: "babel",
+        semi: true,
+        trailingComma: "es5",
+        singleQuote: true,
+        tabWidth: 2,
+      });
+
+      fs.writeFileSync("./src/translate/translations.ts", formattedJsData);
+    });
+  console.log(`Le fichier translate a été mis à jour.`);
+});

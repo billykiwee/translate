@@ -1,11 +1,12 @@
-import { dataLanguages } from "./translations.js";
+import { config, dataLanguages } from "./translations.js";
 export function translate(str) {
     const variables = str?.variables;
     const id = str.id;
-    const { fr, en } = dataLanguages;
-    const languages = { fr, en };
+    const languages = { ...dataLanguages };
     const userLang = window.navigator.language;
-    const defaultLang = str.force ? str.force : userLang.split("-")[0] ?? "en";
+    const defaultLang = str.language
+        ? str.language
+        : userLang.split("-")[0] ?? config.defaultLang;
     const value = languages[defaultLang][id];
     const regex = /{{\s*(\w+)\s*}}/g;
     if (!value) {
@@ -70,8 +71,6 @@ document.querySelector("html").innerHTML = translate({
     id: "hello",
     variables: {
         name: "Bob",
-        age: "12",
-        job: "Plombier",
     },
-    force: "fr",
+    language: "fr",
 });

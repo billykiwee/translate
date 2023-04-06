@@ -1,4 +1,4 @@
-import { config, dataLanguages, Translate } from "./translations.js";
+import { config, dataLanguages, Translate } from "./translate/translations.js";
 
 export function translate(str: Translate): any {
   const variables: any = str?.variables;

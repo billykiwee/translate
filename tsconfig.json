@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "bundle.js",
+    "outDir": "dist",
     "module": "ES6",
     "target": "ES2022",
     "strict": true,

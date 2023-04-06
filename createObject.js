@@ -42,14 +42,25 @@ fs.readdir(path, (err, fichiers) => {
         return mergedObject;
       }
 
+      const getLanguages = config.languages.map((lang) => {
+        return `"${lang}"`;
+      });
+
       const jsData = `
 
-      interface Trad {
-        [string] : string;
+      export interface Translate {
+        id: string | number;
+        variables?: Object;
+        language?: ${getLanguages.join(" | ")};
+      }
+
+      interface TranlationJSON {
+        [key: string] : Object;
       }
       
       export const config = ${JSON.stringify(config)};
-    export const dataLanguages: Trad = ${JSON.stringify(
+      
+    export const dataLanguages: TranlationJSON = ${JSON.stringify(
       mergeJsonObjects(DATA)
     )};
 `;

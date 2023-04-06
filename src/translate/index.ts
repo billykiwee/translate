@@ -1,10 +1,4 @@
-import { config, dataLanguages } from "./translations.js";
-
-interface Translate {
-  id: string | number;
-  variables?: Object;
-  language?: "en" | "fr" | "es";
-}
+import { config, dataLanguages, Translate } from "./translations.js";
 
 export function translate(str: Translate): any {
   const variables: any = str?.variables;

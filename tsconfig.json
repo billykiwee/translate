@@ -9,6 +9,6 @@
     "moduleResolution": "nodenext",
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["**/*.ts"],
+  "include": ["**/*.ts", "**/*.js"],
   "exclude": ["node_modules"]
 }

@@ -1,6 +1,10 @@
 export interface Translate {
-  id: string | number;
-  variables?: Object;
+  id: 'hello' | 'cool' | 'why' | 'because' | 'obviously';
+  variables?: {
+    name: string,
+    age: string,
+    job: string,
+  };
   language?: 'en' | 'fr' | 'es';
 }
 
@@ -8,7 +12,11 @@ interface TranlationJSON {
   [key: string]: Object;
 }
 
-export const config = { defaultLang: 'en', languages: ['en', 'fr', 'es'] };
+export const config = {
+  defaultLang: 'en',
+  languages: ['en', 'fr', 'es'],
+  translate: 'auto',
+};
 
 export const dataLanguages: TranlationJSON = {
   en: {
@@ -16,6 +24,7 @@ export const dataLanguages: TranlationJSON = {
     cool: 'Something goes wrong',
     why: 'why',
     because: 'because of you',
+    obviously: 'Bien sur que oui',
   },
   es: {
     hello: 'Buen día {{name}} estoy {{age}} y tu trabajo es {{job}}',

@@ -1,4 +1,8 @@
-import { config, dataLanguages, Translate } from "./translate/translations.js";
+import {
+  config,
+  dataLanguages,
+  Translate,
+} from "./translations/translations.js";
 
 export function translate(str: Translate): any {
   const variables: any = str?.variables;
@@ -112,6 +116,8 @@ document.querySelector("html")!.innerHTML = translate({
   id: "hello",
   variables: {
     name: "Bob",
+    age: "23",
+    job: "développeur",
   },
-  language: "fr",
+  language: "en",
 });

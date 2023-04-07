@@ -119,6 +119,6 @@ const app = document.querySelector("#app");
 
 if (app) {
   app.innerHTML = translate({
-    id: "because",
+    id: "cool",
   });
 }

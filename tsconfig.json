@@ -2,13 +2,13 @@
   "compilerOptions": {
     "outDir": "dist",
     "module": "ES6",
-    "target": "ES2022",
+    "target": "ES2015",
     "strict": true,
     "esModuleInterop": true,
     "watch": true,
     "moduleResolution": "nodenext",
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["**/*.ts", "**/*.js"],
+  "include": ["**/*.ts"],
   "exclude": ["node_modules"]
 }

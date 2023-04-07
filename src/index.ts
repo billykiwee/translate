@@ -30,7 +30,7 @@ export function translate(str: Translate): any {
     const errorVariables = () => {
       const mustVariables: string[] = [];
 
-      value.replaceAll(regex, (key: string) => {
+      value.replaceAll(regex, (key: any) => {
         const variables = key.replaceAll("{{", "").replaceAll("}}", "");
 
         mustVariables.push(variables);
@@ -52,7 +52,7 @@ export function translate(str: Translate): any {
 
     const mustVariables: string[] = [];
 
-    value.replaceAll(regex, (key: string) => {
+    value.replaceAll(regex, (key: any) => {
       const variables = key.replaceAll("{{", "").replaceAll("}}", "");
 
       mustVariables.push(variables);
@@ -97,12 +97,12 @@ export function translate(str: Translate): any {
     }
   }
 
-  const removeBrace = (value: string) => {
+  const removeBrace = (value: any) => {
     value.replaceAll("{{", "").replaceAll("}}", "");
   };
 
   if (variables) {
-    return value.replaceAll(regex, (key: string) => {
+    return value.replaceAll(regex, (key: any) => {
       const getVariablesValues = key.replaceAll("{{", "").replaceAll("}}", "");
 
       return variables[getVariablesValues];
@@ -112,12 +112,16 @@ export function translate(str: Translate): any {
   }
 }
 
-document.querySelector("html")!.innerHTML = translate({
-  id: "hello",
-  variables: {
-    name: "Bob",
-    age: "23",
-    job: "développeur",
-  },
-  language: "en",
-});
+const app = document.querySelector("#app");
+
+if (app) {
+  app.innerHTML = translate({
+    id: "hello",
+    variables: {
+      name: "bonjour",
+      age: "22",
+      job: "balayer",
+    },
+    language: "fr",
+  });
+}

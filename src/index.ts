@@ -122,6 +122,5 @@ if (app) {
       age: "22",
       job: "balayer",
     },
-    language: "fr",
   });
 }

@@ -13,7 +13,7 @@ fs.readdir(path, (err, fichiers) => {
     fs.readFileSync("src/config/translate.config.json").toString()
   );
 
-  const DATA = [];
+  const DATA: any = [];
 
   const ref = fs
     .readFileSync(`src/translations/${config.defaultLang}.json`)
@@ -70,10 +70,10 @@ fs.readdir(path, (err, fichiers) => {
 
       DATA.push(getFIleData);
 
-      function mergeJsonObjects(DATA) {
-        let mergedObject = {};
+      function mergeJsonObjects(DATA: any) {
+        let mergedObject: any = {};
 
-        DATA.forEach((jsonObject) => {
+        DATA.forEach((jsonObject: any) => {
           const key = Object.keys(jsonObject)[0];
           const value = jsonObject[key];
 
@@ -83,7 +83,7 @@ fs.readdir(path, (err, fichiers) => {
         return mergedObject;
       }
 
-      const getLanguages = config.languages.map((lang) => {
+      const getLanguages = config.languages.map((lang: string) => {
         return `"${lang}"`;
       });
 

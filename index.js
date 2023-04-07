@@ -9,7 +9,6 @@ const port = 3000;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// Définition du middleware pour servir les fichiers statiques depuis /dist
 app.use(express.static(path.join(__dirname, "dist")));
 
 app.get("/", (req, res) => {

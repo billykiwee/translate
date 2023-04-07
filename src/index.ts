@@ -108,7 +108,10 @@ export function translate(str: Translate): any {
       return variables[getVariablesValues];
     });
   } else {
-    return removeBrace(value);
+    if (value.includes("{{")) {
+      return removeBrace(value);
+    }
+    return value;
   }
 }
 
@@ -116,11 +119,6 @@ const app = document.querySelector("#app");
 
 if (app) {
   app.innerHTML = translate({
-    id: "hello",
-    variables: {
-      name: "bonjour",
-      age: "22",
-      job: "balayer",
-    },
+    id: "because",
   });
 }

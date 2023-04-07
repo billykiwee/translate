@@ -10,10 +10,10 @@ fs.readdir(path, (err, fichiers) => {
   }
 
   const config = JSON.parse(
-    fs.readFileSync("src/translate.config.json").toString()
+    fs.readFileSync("src/config/translate.config.json").toString()
   );
 
-  const DATA: any = [];
+  const DATA = [];
 
   const ref = fs
     .readFileSync(`src/translations/${config.defaultLang}.json`)
@@ -56,8 +56,10 @@ fs.readdir(path, (err, fichiers) => {
 
   const variables = getVariables();
 
+  console.log(fichiers);
+
   fichiers
-    .filter((e) => e.includes(".json") && !e.includes(".config"))
+    .filter((e) => e.includes(".json"))
     .map((file) => {
       const languagesJSON = fs
         .readFileSync(`src/translations/${file}`)
@@ -68,10 +70,10 @@ fs.readdir(path, (err, fichiers) => {
 
       DATA.push(getFIleData);
 
-      function mergeJsonObjects(DATA: any) {
-        let mergedObject: any = {};
+      function mergeJsonObjects(DATA) {
+        let mergedObject = {};
 
-        DATA.forEach((jsonObject: any) => {
+        DATA.forEach((jsonObject) => {
           const key = Object.keys(jsonObject)[0];
           const value = jsonObject[key];
 
@@ -81,7 +83,7 @@ fs.readdir(path, (err, fichiers) => {
         return mergedObject;
       }
 
-      const getLanguages = config.languages.map((lang: string) => {
+      const getLanguages = config.languages.map((lang) => {
         return `"${lang}"`;
       });
 

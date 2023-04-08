@@ -1,42 +1,39 @@
+import express from "express";
+import { getTranslate } from "./models/translate.js";
 import {
   config,
   dataLanguages,
   Translate,
 } from "./translations/translations.js";
 
+const app = express();
+const port = 3000; // Remplacez par le port souhaité
+
 export function translate(str: Translate): any {
   const variables: any = str?.variables;
-
   const id = str.id;
-
   const languages: any = { ...dataLanguages };
-
-  const userLang = window.navigator.language;
-
+  const userLang = "en"; // Remplacez par la logique pour obtenir la langue de l'utilisateur
   const defaultLang = str.language
     ? str.language
     : userLang.split("-")[0] ?? config.defaultLang;
-
   const value = languages[defaultLang][id];
-
   const regex = /{{\s*(\w+)\s*}}/g;
 
   if (!value) {
-    return console.error(`The ID : "${id}" "not found in translations`);
+    console.error(`The ID : "${id}" "not found in translations`);
+    return;
   }
   if (variables) {
-    // Pas de variable
-
     const errorVariables = () => {
       const mustVariables: string[] = [];
 
       value.replaceAll(regex, (key: any) => {
-        const variables = key.replaceAll("{{", "").replaceAll("}}", "");
-
-        mustVariables.push(variables);
+        const variable = key.replaceAll("{{", "").replaceAll("}}", "");
+        mustVariables.push(variable);
       });
       throw new Error(
-        `This translations must contains those variables : ${mustVariables.join(
+        `This translation must contain the following variables: ${mustVariables.join(
           ", "
         )}.`
       );
@@ -53,12 +50,11 @@ export function translate(str: Translate): any {
     const mustVariables: string[] = [];
 
     value.replaceAll(regex, (key: any) => {
-      const variables = key.replaceAll("{{", "").replaceAll("}}", "");
-
-      mustVariables.push(variables);
+      const variable = key.replaceAll("{{", "").replaceAll("}}", "");
+      mustVariables.push(variable);
     });
 
-    const ifVariablesDosentMatches = () => {
+    const ifVariablesDoNotMatch = () => {
       const missingElements = mustVariables.filter(
         (el) => !Object.keys(variables).includes(el)
       );
@@ -71,54 +67,63 @@ export function translate(str: Translate): any {
         throw new Error(
           `${
             extraElements.length
-              ? '" ' + extraElements.join(", ") + ' " does not exit'
+              ? '"' + extraElements.join(", ") + '" does not exist. '
               : ""
-          }  \n The variable " ${missingElements.join(
+          }The variable "${missingElements.join(
             ", "
-          )} " is not asignable to this translation. It must contains : ${mustVariables.join(
+          )}" is not assignable to this translation. It must contain: ${mustVariables.join(
             ", "
           )}`
         );
       }
       if (extraElements.length) {
         throw new Error(
-          `The variable " ${extraElements.join(
+          `The variable "${extraElements.join(
             ", "
-          )} " is not asignable to this translation. It must contains : ${mustVariables.join(
+          )}" is not assignable to this translation. It must contain: ${mustVariables.join(
             ", "
           )}`
         );
       }
     };
     try {
-      ifVariablesDosentMatches();
+      ifVariablesDoNotMatch();
     } catch (err) {
       console.error(err);
     }
   }
 
   const removeBrace = (value: any) => {
-    value.replaceAll("{{", "").replaceAll("}}", "");
+    return value.replaceAll("{{", "").replaceAll("}}", "");
   };
 
-  if (variables) {
+  /*   if (variables) {
     return value.replaceAll(regex, (key: any) => {
-      const getVariablesValues = key.replaceAll("{{", "").replaceAll("}}", "");
-
-      return variables[getVariablesValues];
+      const variableValue = key.replaceAll("{{", "").replaceAll("}}", "");
+      return variables[variableValue];
     });
   } else {
     if (value.includes("{{")) {
       return removeBrace(value);
+    } else {
+      return value;
     }
-    return value;
+  } */
+  if (str.language) {
+    const t = getTranslate(str.language, value);
+    return t;
   }
 }
 
-const app = document.querySelector("#app");
+const t = translate({
+  id: "hello",
+  variables: { name: "Genail", age: "12", job: "garagiste" },
+});
 
-if (app) {
-  app.innerHTML = translate({
-    id: "cool",
-  });
-}
+app.get("/", (req, res) => {
+  res.send(t);
+});
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});

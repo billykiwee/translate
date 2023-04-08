@@ -1,14 +1,15 @@
 {
   "compilerOptions": {
     "outDir": "dist",
-    "module": "ESNext",
+    "module": "NodeNext",
     "target": "ES2015",
     "strict": true,
     "esModuleInterop": true,
     "watch": true,
     "moduleResolution": "nodenext",
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "typeRoots": ["./typings", "./node_modules/@types"]
   },
-  "include": ["**/*.ts", "index.ts", "index.ts"],
+  "include": ["src/**/*"],
   "exclude": ["node_modules"]
 }

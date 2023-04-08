@@ -4,13 +4,15 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "start": "node index.js && node src/models/generate.ts ",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon -e ts --exec \"npx tsc && node dist/index.js\"",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx tsc"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "^18.15.11",
     "@types/prettier": "^2.7.2",
     "json-loader": "^0.5.7",
     "prettier": "^2.8.7",
@@ -18,9 +20,11 @@
   },
   "dependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.21.2",
+    "@vitalets/google-translate-api": "^9.1.0",
     "commonjs": "^0.0.1",
     "express": "^4.18.2",
     "firebase": "^9.19.1",
+    "google-translate-api": "^2.3.0",
     "translate-google": "^1.5.0"
   },
   "type": "module"

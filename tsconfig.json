@@ -9,7 +9,7 @@
     "moduleResolution": "nodenext",
     "forceConsistentCasingInFileNames": true,
     "typeRoots": ["./typings", "./node_modules/@types"],
-    "declaration": true,
+
     "resolveJsonModule": true
   },
   "include": ["src/**/*", "src/types/**/*", "src/language/**/*"],

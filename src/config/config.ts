@@ -1,6 +1,6 @@
 import fs from "fs";
 
-interface ConfigInt {
+export interface ConfigInt {
   defaultLang: string;
   languages: string[];
   translate: boolean;

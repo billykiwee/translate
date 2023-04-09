@@ -6,6 +6,7 @@ export function deleteTranslation(lang: string[]) {
   fs.readdir(dossierPath, (err, fichiers) => {
     if (err) {
       console.error(`Erreur at deleted : ${err}`);
+
       return;
     }
 

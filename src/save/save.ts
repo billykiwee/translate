@@ -19,6 +19,7 @@ for (const v in filePath) {
 
 export function save() {
   upadteFiles();
+
   createType();
 
   console.log(`Monitoring default.json in progress...`);

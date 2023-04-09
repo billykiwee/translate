@@ -19,31 +19,33 @@ function t(input: Translate): string | any {
   const getTranslattionJSON = getLanguage(config.defaultLang)[getID];
 
   try {
-    if (variables && getTranslattionJSON) {
-      const replaceVariables = getTranslattionJSON.replace(
-        regex,
-        (match: string, value: string) => {
-          const placeholders = variables[value];
-
-          return placeholders;
-        }
-      );
-      return replaceVariables;
+    if (variables) {
+      if (getTranslattionJSON) {
+        const replaceVariables = getTranslattionJSON.replace(
+          regex,
+          (match: string, value: string) => {
+            const placeholders = variables[value];
+            return placeholders;
+          }
+        );
+        return replaceVariables;
+      } else {
+        throw new Error("❌ This ID does not exists on default.json");
+      }
     } else {
-      throw new Error("❌ This ID does not exists on default.json");
+      return getTranslattionJSON;
     }
   } catch (err) {
     console.log(err);
   }
 }
-/* 
-console.log(
+
+/* console.log(
   t({
-    id: "hello",
+    id: "contact",
     variables: {
-      name: "John",
+      number: "069384993",
     },
-    language: "en",
   })
 );
  */

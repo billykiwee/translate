@@ -4,9 +4,6 @@ import { Translate } from "./interfaces/translate.js";
 import { createType } from "./models/generate.js";
 import { save } from "./save/save.js";
 
-//createJSON();
-//createType();
-
 save();
 
 const getLanguage = (lang: string): any => {
@@ -15,32 +12,35 @@ const getLanguage = (lang: string): any => {
   );
 };
 
-function t(input: Translate): string {
+function t(input: Translate): string | any {
   const regex = /\[(.*?)\]/g;
 
   const [getID, variables]: [string, any] = [input.id, input.variables];
 
   const getTranslattionJSON = getLanguage(config.defaultLang)[getID];
 
-  if (variables) {
-    const replaceVariables = getTranslattionJSON.replace(
-      regex,
-      (match: string, value: string) => {
-        const placeholders = variables[value];
+  try {
+    if (variables && getTranslattionJSON) {
+      const replaceVariables = getTranslattionJSON.replace(
+        regex,
+        (match: string, value: string) => {
+          const placeholders = variables[value];
 
-        return placeholders;
-      }
-    );
-
-    return replaceVariables;
+          return placeholders;
+        }
+      );
+      return replaceVariables;
+    } else {
+      throw new Error("❌ This ID does not exists on default.json");
+    }
+  } catch (err) {
+    console.log(err);
   }
-
-  return getTranslattionJSON;
 }
 
-/* console.log(
+console.log(
   t({
-    id: "my-profil",
+    id: "you-default-language",
     variables: {
       name: "John",
       age: 25,
@@ -48,4 +48,4 @@ function t(input: Translate): string {
     },
     language: "en",
   })
-); */
+);

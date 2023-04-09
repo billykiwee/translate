@@ -5,7 +5,7 @@ import { googleTranslate } from "../models/translate.js";
 import { deleteTranslation } from "./delete.js";
 
 export const upadteFiles = async () => {
-  const json = fs.readFileSync("src/language/language.json").toString();
+  const json = fs.readFileSync(`src/language/default.json`).toString();
 
   const lang = config.languages;
 
@@ -46,21 +46,27 @@ export const upadteFiles = async () => {
   }
 
   if (canTranslate(json)) {
-    for (const l in lang) {
-      const transaltions = await getT(lang[l]);
+    async function push() {
+      for (const l in lang) {
+        const transaltions = await getT(lang[l]);
 
-      async function pushTranslation() {
-        return fs.writeFileSync(
-          `./src/translations/${lang[l]}.json`,
-          JSON.stringify(transaltions, null, 2)
-        );
+        async function pushTranslation() {
+          return fs.writeFileSync(
+            `./src/translations/${lang[l]}.json`,
+            JSON.stringify(transaltions, null, 2)
+          );
+        }
+        pushTranslation().then(() => {
+          console.log(`  |- ${lang[l].toUpperCase()} done`);
+        });
       }
-      pushTranslation().then(() => {
-        console.log(`✅ Translations ${lang[l].toUpperCase()} done`);
-      });
     }
+    push().then(() => {
+      console.log(`✅ Translations updated`);
+      console.log(`Monitoring default.json in progress...`);
+    });
   } else {
-    console.log(`✅ Translations up-to-date`);
+    console.log(`   ✅ Translations up-to-date`);
   }
 
   function canTranslate(json: string) {

@@ -1,10 +1,4 @@
 {
-  "hello": "Bonjour [name] tu as [age] et ton travail est [job]",
-  "cool": "Quelque chose ne va pas",
-  "why": "Pourquoi",
-  "because": "à cause de toi",
-  "saymyname": "dis mon nom [hisenberg]",
-  "get": "avoir",
-  "love": "amour",
-  "my-profil": "Bonjour, je m'appelle [name], j'ai [age] ans et je suis [job]."
+  "you-default-language": "frousser",
+  "hello": "Bonjour [name]"
 }

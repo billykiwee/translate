@@ -1,17 +1,5 @@
 export interface Translate {
-  id:
-    | "hello"
-    | "cool"
-    | "why"
-    | "because"
-    | "saymyname"
-    | "get"
-    | "love"
-    | "my-profil";
-  variables?: {
-    name: string | number,
-    age: string | number,
-    job: string | number,
-  };
+  id: "you-default-language" | "hello";
+  variables?: { [key: string]: string | number };
   language?: "en" | "fr";
 }

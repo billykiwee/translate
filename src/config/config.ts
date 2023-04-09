@@ -63,7 +63,7 @@ if (canTranslate(json)) {
     });
   }
 } else {
-  console.log(`✅ Every translations already updated`);
+  console.log(`✅ Every translations up-to-date`);
 }
 
 function canTranslate(json: string) {

@@ -35,10 +35,9 @@ function t(input: Translate): string {
   return getTranslattionJSON;
 }
 
-/* console.log(
+console.log(
   t({
     id: "because",
     language: "en",
   })
 );
- */

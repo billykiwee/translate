@@ -8,8 +8,9 @@
     "watch": true,
     "moduleResolution": "nodenext",
     "forceConsistentCasingInFileNames": true,
-    "typeRoots": ["./typings", "./node_modules/@types"]
+    "typeRoots": ["./typings", "./node_modules/@types"],
+    "declaration": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "src/types/**/*"],
   "exclude": ["node_modules"]
 }

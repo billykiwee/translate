@@ -1,23 +1,28 @@
 import express from "express";
-import { getTranslate } from "./models/translate.js";
-import {
-  config,
-  dataLanguages,
-  Translate,
-} from "./translations/translations.js";
+import { config } from "./config/config.js";
+import { Translate } from "./interfaces/translate.js";
+import { getTranslate, googleTranslate } from "./models/translate.js";
+import { translations } from "./translations/translations.js";
 
 const app = express();
-const port = 3000; // Remplacez par le port souhaité
 
-export function translate(str: Translate): any {
+const port = 3000;
+
+/* export async function t(str: Translate) {
   const variables: any = str?.variables;
+
   const id = str.id;
+
   const languages: any = { ...dataLanguages };
-  const userLang = "en"; // Remplacez par la logique pour obtenir la langue de l'utilisateur
-  const defaultLang = str.language
-    ? str.language
+
+  const userLang = "en";
+
+  const defaultLang = str.language.from
+    ? str.language.from
     : userLang.split("-")[0] ?? config.defaultLang;
+
   const value = languages[defaultLang][id];
+
   const regex = /{{\s*(\w+)\s*}}/g;
 
   if (!value) {
@@ -97,33 +102,53 @@ export function translate(str: Translate): any {
     return value.replaceAll("{{", "").replaceAll("}}", "");
   };
 
-  /*   if (variables) {
-    return value.replaceAll(regex, (key: any) => {
+  let textOut = "";
+
+  if (variables) {
+    textOut = value.replaceAll(regex, (key: any) => {
       const variableValue = key.replaceAll("{{", "").replaceAll("}}", "");
+
       return variables[variableValue];
     });
   } else {
     if (value.includes("{{")) {
-      return removeBrace(value);
+      textOut = removeBrace(value);
     } else {
-      return value;
+      textOut = value;
     }
-  } */
-  if (str.language) {
-    const t = getTranslate(str.language, value);
-    return t;
   }
+
+  const g = await googleTranslate(textOut, str.language.to);
+  return g;
+}
+ */
+
+function t(input: Translate): string {
+  const regex = /\[(.*?)\]/g;
+
+  const [getID, variables]: [string, any] = [input.id, input.variables];
+
+  const getTranslattionJSON = translations[getID];
+
+  if (variables) {
+    const replaceVariables = getTranslattionJSON.replace(
+      regex,
+      (match: string, value: string) => {
+        const placeholders = variables[value];
+
+        return placeholders;
+      }
+    );
+
+    return replaceVariables;
+  }
+
+  return getTranslattionJSON;
 }
 
-const t = translate({
-  id: "hello",
-  variables: { name: "Genail", age: "12", job: "garagiste" },
-});
-
-app.get("/", (req, res) => {
-  res.send(t);
-});
-
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+console.log(
+  t({
+    id: "hello",
+    variables: { name: "Billy", age: "26", job: "Plombier" },
+  })
+);

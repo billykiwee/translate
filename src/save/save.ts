@@ -1,4 +1,5 @@
 import fs from "fs";
+import { config } from "../config/config.js";
 import { createType } from "../models/generate.js";
 import { upadteFiles } from "../models/update.js";
 

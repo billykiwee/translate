@@ -1,5 +1,11 @@
 import fs from "fs";
 
-export const config = JSON.parse(
+interface ConfigInt {
+  defaultLang: string;
+  languages: string[];
+  translate: boolean;
+}
+
+export const config: ConfigInt = JSON.parse(
   fs.readFileSync("translate.config.json").toString()
 );

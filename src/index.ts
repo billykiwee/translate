@@ -36,7 +36,7 @@ function t(input: Translate): string | any {
     console.log(err);
   }
 }
-
+/* 
 console.log(
   t({
     id: "hello",
@@ -46,3 +46,4 @@ console.log(
     language: "en",
   })
 );
+ */

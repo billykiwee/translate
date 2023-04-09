@@ -13,7 +13,7 @@ export function getVariables(json: any) {
             id: "${Object.keys(json).join('" | "')}",
             variables?: {${matches
               .map((match: string) => match.slice(1, -1))
-              .join(": string;")} : string;
+              .join(": string | number;")} : string | number;
             },
             language?: "${config.languages.join('" | "')}"
           }`;

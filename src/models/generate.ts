@@ -7,7 +7,7 @@ const json = JSON.parse(
 );
 
 // Create json
-export const createJSON = () => {
+/* export const createJSON = () => {
   const translationsFile = `export const translations : any = ${JSON.stringify(
     json
   )}`;
@@ -16,7 +16,7 @@ export const createJSON = () => {
     "./src/translations/translations.ts",
     formatJson(translationsFile)
   );
-};
+}; */
 
 export const createType = () => {
   const typeFile = `

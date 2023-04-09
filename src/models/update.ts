@@ -13,6 +13,7 @@ export const upadteFiles = async () => {
 
   async function getT(lang: string) {
     let obj = [];
+
     for (const key in jsonParser) {
       if (Object.prototype.hasOwnProperty.call(jsonParser, key)) {
         const element = jsonParser[key];
@@ -26,14 +27,11 @@ export const upadteFiles = async () => {
         const getTranslateWithVariables = await afterTranslate.then(
           (translated: any) => {
             if (placeholder) {
-              const translatedSplit = translated.split(" ");
+              const translatedSplit = translated.replace(/\[\]/g, () =>
+                placeholder.shift()
+              );
 
-              for (let i = 0; i < translatedSplit.length; i++) {
-                if (translatedSplit[i] === "[]") {
-                  translatedSplit[i] = placeholder.shift();
-                }
-              }
-              return translatedSplit.join(" ");
+              return translatedSplit;
             } else {
               return translated;
             }

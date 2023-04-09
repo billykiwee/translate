@@ -6,5 +6,5 @@
   "saymyname": "say my name [hisenberg]",
   "get": "to have",
   "love": "amour",
-  "my-profil": "Hello, My name is [], I am [name] years and I am []."
+  "my-profil": "Hello, My name is [name], I am [age] years and I am [job]."
 }

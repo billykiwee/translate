@@ -38,7 +38,7 @@ function t(input: Translate): string {
   return getTranslattionJSON;
 }
 
-console.log(
+/* console.log(
   t({
     id: "my-profil",
     variables: {
@@ -48,4 +48,4 @@ console.log(
     },
     language: "en",
   })
-);
+); */

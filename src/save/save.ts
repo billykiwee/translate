@@ -10,7 +10,6 @@ export function save() {
 // Chemin du fichier à surveiller
 const filePath = "src/language/language.json";
 
-// Fonction de rappel (callback) appelée lorsque le fichier est modifié
 const fileChangeCallback = (event: any, filename: string) => {
   console.log(event, filename, filePath);
 
@@ -21,8 +20,6 @@ const fileChangeCallback = (event: any, filename: string) => {
   }
 };
 
-// Démarrer la surveillance du fichier
 fs.watch(filePath, fileChangeCallback);
 
-// Afficher un message pour indiquer que la surveillance a commencé
-console.log(`Surveillance du fichier ${filePath} en cours...`);
+console.log(`Monitoring file ${filePath} in progress...`);

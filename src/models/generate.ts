@@ -6,18 +6,22 @@ const json = JSON.parse(
   fs.readFileSync("src/language/language.json").toString()
 );
 
-const translationsFile = `export const translations : any = ${JSON.stringify(
-  json
-)}`;
-
 // Create json
-fs.writeFileSync(
-  "./src/translations/translations.ts",
-  formatJson(translationsFile)
-);
+export const createJSON = () => {
+  const translationsFile = `export const translations : any = ${JSON.stringify(
+    json
+  )}`;
 
-const typeFile = `
-export interface Translate ${getVariables(json)} ;
-  `;
-// Create type
-fs.writeFileSync("./src/interfaces/translate.ts", formatJson(typeFile));
+  fs.writeFileSync(
+    "./src/translations/translations.ts",
+    formatJson(translationsFile)
+  );
+};
+
+export const createType = () => {
+  const typeFile = `
+  export interface Translate ${getVariables(json)} ;
+    `;
+
+  fs.writeFileSync("./src/interfaces/translate.ts", formatJson(typeFile));
+};

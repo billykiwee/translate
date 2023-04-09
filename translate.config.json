@@ -1,6 +1,5 @@
 {
-  "defaultLang": "en",
-  "languages": ["en", "fr", "es", "ja"],
-  "translate": "auto",
-  "translateVariables": true
+  "defaultLang": "fr",
+  "languages": ["en", "fr", "es", "de"],
+  "translate": true
 }

@@ -1,6 +1,8 @@
 {
-  "hello": "Bonjour [name] tu as [age] et ton travail est [job]",
-  "cool": "Quelque chose ne va pas",
-  "why": "Pourquoi",
-  "because": "à cause de toi"
+  "hello": "Hello [name] You have [age] and your work is [job]",
+  "cool": "Something is wrong",
+  "why": "For what",
+  "because": "because of you",
+  "saymyname": "say my name [hisenberg]",
+  "project": "My project"
 }

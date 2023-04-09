@@ -1,0 +1,8 @@
+{
+  "hello": "Hallo [name] hast du [age] und deine Arbeit ist [job]",
+  "cool": "Irgendwas stimmt nicht",
+  "why": "Wofür",
+  "because": "deinetwegen",
+  "saymyname": "sag meinen Namen [hisenberg]",
+  "project": "Mein Projekt"
+}

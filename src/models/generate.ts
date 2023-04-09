@@ -1,5 +1,4 @@
 import fs from "fs";
-import { config } from "../config/config.js";
 import { formatJson } from "../functions/formatJson.js";
 import { getVariables } from "../functions/variables.js";
 
@@ -13,6 +12,11 @@ export const createType = () => {
     `;
 
   fs.writeFileSync("./src/interfaces/translate.ts", formatJson(typeFile));
+};
 
-  console.log("Interface generated");
+export const createTranslationFile = (transaltions: string, lang: string) => {
+  return fs.writeFileSync(
+    `./src/translations/${lang}.json`,
+    JSON.stringify(transaltions, null, 2)
+  );
 };

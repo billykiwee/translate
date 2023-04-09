@@ -1,19 +1,10 @@
 import fs from "fs";
-import { config } from "../config/config.js";
 import { createType } from "../models/generate.js";
 import { upadteFiles } from "../models/update.js";
 
-export function save() {
-  upadteFiles();
-  createType();
-}
-
-// Chemin du fichier à surveiller
-const filePath = `src/language/default.json`;
+const filePath = ["src/language/default.json", "translate.config.json"];
 
 const fileChangeCallback = (event: any, filename: string) => {
-  console.log(event, filename, filePath);
-
   if (event === "change") {
     console.log(`Translations files is updating`);
 
@@ -21,6 +12,13 @@ const fileChangeCallback = (event: any, filename: string) => {
   }
 };
 
-fs.watch(filePath, fileChangeCallback);
+for (const v in filePath) {
+  fs.watch(filePath[v], fileChangeCallback);
+}
 
-console.log(`Monitoring default.json in progress...`);
+export function save() {
+  upadteFiles();
+  createType();
+
+  console.log(`Monitoring default.json in progress...`);
+}

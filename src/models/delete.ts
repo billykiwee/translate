@@ -5,7 +5,7 @@ export function deleteTranslation(lang: string[]) {
 
   fs.readdir(dossierPath, (err, fichiers) => {
     if (err) {
-      console.error(`Erreur lors de la lecture du dossier : ${err}`);
+      console.error(`Erreur at deleted : ${err}`);
       return;
     }
 
@@ -34,11 +34,9 @@ export function deleteTranslation(lang: string[]) {
         const filePath = `src/translations/${languages[v]}`;
 
         fs.unlink(filePath, (err) => {
-          if (err) {
-            console.error(`Erreur lors de la suppression du fichier : ${err}`);
-            return;
-          }
-          console.log(`Le fichier ${filePath} a été supprimé avec succès`);
+          console.log(
+            `     - ${languages[v].toUpperCase().split(".")[0]} deleted`
+          );
         });
       }
     });

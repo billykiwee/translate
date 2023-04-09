@@ -3,6 +3,7 @@ import { config } from "../config/config.js";
 import { areObjectsEqual } from "../functions/objectsEquals.js";
 import { googleTranslate } from "../models/translate.js";
 import { deleteTranslation } from "./delete.js";
+import { createTranslationFile } from "./generate.js";
 
 export const upadteFiles = async () => {
   const json = fs.readFileSync(`src/language/default.json`).toString();
@@ -51,22 +52,21 @@ export const upadteFiles = async () => {
         const transaltions = await getT(lang[l]);
 
         async function pushTranslation() {
-          return fs.writeFileSync(
-            `./src/translations/${lang[l]}.json`,
-            JSON.stringify(transaltions, null, 2)
-          );
+          return createTranslationFile(transaltions, lang[l]);
         }
         pushTranslation().then(() => {
-          console.log(`  |- ${lang[l].toUpperCase()} done`);
+          console.log(`     - ${lang[l].toUpperCase()} done`);
         });
+
+        deleteTranslation(lang);
       }
     }
     push().then(() => {
-      console.log(`✅ Translations updated`);
+      console.log(`     ✅ Translations updated`);
       console.log(`Monitoring default.json in progress...`);
     });
   } else {
-    console.log(`   ✅ Translations up-to-date`);
+    console.log(`Translations up-to-date`);
   }
 
   function canTranslate(json: string) {
@@ -79,6 +79,4 @@ export const upadteFiles = async () => {
       areObjectsEqual(JSON.parse(json), JSON.parse(defaultLangJson))
     );
   }
-
-  deleteTranslation(lang);
 };

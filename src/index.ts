@@ -1,7 +1,6 @@
 import fs from "fs";
 import { config } from "./config/config.js";
 import { Translate } from "./interfaces/translate.js";
-import { createType } from "./models/generate.js";
 import { save } from "./save/save.js";
 
 save();
@@ -40,11 +39,9 @@ function t(input: Translate): string | any {
 
 console.log(
   t({
-    id: "you-default-language",
+    id: "hello",
     variables: {
       name: "John",
-      age: 25,
-      job: "software egineer",
     },
     language: "en",
   })

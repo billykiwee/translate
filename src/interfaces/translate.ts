@@ -1,12 +1,5 @@
 export interface Translate {
-  id:
-    | "hello"
-    | "cool"
-    | "why"
-    | "because"
-    | "saymyname"
-    | "project"
-    | "my-profil";
+  id: "hello" | "cool" | "why" | "because" | "saymyname" | "get" | "my-profil";
   variables?: {
     name: string | number,
     age: string | number,

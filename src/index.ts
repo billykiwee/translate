@@ -2,9 +2,12 @@ import fs from "fs";
 import { config } from "./config/config.js";
 import { Translate } from "./interfaces/translate.js";
 import { createType } from "./models/generate.js";
+import { save } from "./save/save.js";
 
 //createJSON();
-createType();
+//createType();
+
+save();
 
 const getLanguage = (lang: string): any => {
   return JSON.parse(
@@ -35,14 +38,14 @@ function t(input: Translate): string {
   return getTranslattionJSON;
 }
 
-t({
-  id: "my-profil",
-  variables: {
-    name: "John",
-    age: 25,
-    job: "software egineer",
-  },
-  language: "en",
-});
-
-// Hello, My name is John, I am 25 and I am software egineer.
+console.log(
+  t({
+    id: "my-profil",
+    variables: {
+      name: "John",
+      age: 25,
+      job: "software egineer",
+    },
+    language: "en",
+  })
+);

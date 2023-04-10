@@ -44,7 +44,8 @@ export function t(input: Translate): string | any {
     errorMsg(err);
   }
 }
-
+/* 
 console.log(
   t({ id: "hello", variables: { name: "Billy", age: 21 }, language: "fr" })
 );
+ */

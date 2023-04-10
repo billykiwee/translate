@@ -1,4 +1,4 @@
-export type LanguagesConfig = "en" | "fr" | "es" | undefined;
+export type LanguagesConfig = "fr" | "en" | "es" | "ru" | undefined;
 
 export interface Translate {
   id:

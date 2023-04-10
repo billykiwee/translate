@@ -1,3 +1,5 @@
+export type LanguagesConfig = "en" | "fr" | "es" | undefined;
+
 export interface Translate {
   id:
     | "you"
@@ -37,5 +39,5 @@ export interface Translate {
     | "undo"
     | "redo";
   variables?: { [key: string]: string | number };
-  language?: "en" | "fr" | "es";
+  language?: LanguagesConfig;
 }

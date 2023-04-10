@@ -1,6 +1,7 @@
 import fs from "fs";
 import { config } from "../config/config.js";
 import { areObjectsEqual } from "../functions/objectsEquals.js";
+import { sucessMsg } from "../handlers/utils.js";
 import { googleTranslate } from "../models/translate.js";
 import { deleteTranslation } from "./delete.js";
 import { createTranslationFile } from "./generate.js";
@@ -22,6 +23,12 @@ export const upadteFiles = async () => {
         const placeholder = element.match(/\[(.*?)\]/g);
 
         const emptyBraces = element.replace(/\[(.*?)\]/g, () => "[]");
+
+        const dontTranslateTheDefaultLang = lang !== config.defaultLang;
+
+        if (dontTranslateTheDefaultLang) {
+          return;
+        }
 
         const afterTranslate = googleTranslate(emptyBraces, lang);
 
@@ -62,11 +69,11 @@ export const upadteFiles = async () => {
       }
     }
     push().then(() => {
-      console.log(`     ✅ Translations updated`);
+      sucessMsg(`     ✅ Translations updated`);
       console.log(`Monitoring default.json in progress...`);
     });
   } else {
-    console.log(`Translations up-to-date`);
+    sucessMsg(`     Translations up-to-date`);
   }
 
   function canTranslate(json: string) {

@@ -1,6 +1,7 @@
 import fs from "fs";
 import { config } from "./config/config.js";
-import { Translate } from "./interfaces/translate.js";
+import { errorMsg } from "./handlers/utils.js";
+import { LanguagesConfig, Translate } from "./interfaces/translate.js";
 import { save } from "./save/save.js";
 
 save();
@@ -11,41 +12,39 @@ const getLanguage = (lang: string): any => {
   );
 };
 
-function t(input: Translate): string | any {
+export function t(input: Translate): string | any {
   const regex = /\[(.*?)\]/g;
 
-  const [getID, variables]: [string, any] = [input.id, input.variables];
-
-  const getTranslattionJSON = getLanguage(config.defaultLang)[getID];
+  const [getID, variables, language]: [string, any, LanguagesConfig] = [
+    input.id,
+    input.variables,
+    input.language,
+  ];
 
   try {
-    if (variables) {
-      if (getTranslattionJSON) {
-        const replaceVariables = getTranslattionJSON.replace(
-          regex,
-          (match: string, value: string) => {
-            const placeholders = variables[value];
-            return placeholders;
-          }
-        );
-        return replaceVariables;
-      } else {
-        throw new Error("❌ This ID does not exists on default.json");
-      }
+    const getTranslattionJSON = getLanguage(language ?? config.defaultLang)[
+      getID
+    ];
+
+    if (getTranslattionJSON) {
+      const replaceVariables = getTranslattionJSON.replace(
+        regex,
+        (match: string, value: string) => {
+          const placeholders = variables[value];
+
+          return placeholders;
+        }
+      );
+
+      return replaceVariables;
     } else {
-      return getTranslattionJSON;
+      throw new Error(`❌ The id: "${getID}" does not exists on default.json`);
     }
-  } catch (err) {
-    console.log(err);
+  } catch (err: any) {
+    errorMsg(err);
   }
 }
 
-/* console.log(
-  t({
-    id: "contact",
-    variables: {
-      number: "069384993",
-    },
-  })
+console.log(
+  t({ id: "hello", variables: { name: "Billy", age: 21 }, language: "fr" })
 );
- */

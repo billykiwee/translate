@@ -9,6 +9,10 @@ const json = JSON.parse(
 
 export const createType = () => {
   const typeFile = `
+  export type LanguagesConfig =  "${Object.values(config.languages).join(
+    '" | "'
+  )}"  | undefined;
+
   export interface Translate ${getVariables(json)} ;
     `;
   fs.writeFileSync("./src/interfaces/translate.ts", formatJson(typeFile));

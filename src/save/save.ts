@@ -1,9 +1,11 @@
 import fs from "fs";
 import { config } from "../config/config.js";
+import { pendingMsg } from "../handlers/utils.js";
+import { t } from "../index.js";
 import { createType } from "../models/generate.js";
 import { upadteFiles } from "../models/update.js";
 
-const filePath = ["src/language/default.json", "translate.config.json"];
+const filePath = ["src/", "src/language/", "translate.config.json"];
 
 const fileChangeCallback = (event: any, filename: string) => {
   if (event === "change") {
@@ -18,9 +20,9 @@ for (const v in filePath) {
 }
 
 export function save() {
-  upadteFiles();
+  //upadteFiles();
 
   createType();
 
-  console.log(`Monitoring default.json in progress...`);
+  pendingMsg(`Translation is running...`);
 }

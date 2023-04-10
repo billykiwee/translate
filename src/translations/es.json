@@ -1,6 +1,6 @@
 {
   "you": "el",
-  "hello": "Hola soy [name]",
+  "hello": "Hola soy [name], tengo [age] años de edad",
   "cool": "impresionante",
   "good": "Campesino",
   "thanks": "mirci",

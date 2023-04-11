@@ -1,18 +1,18 @@
-export function areObjectsEqual(obj1: any, obj2: any) {
-  // Comparaison des clés
-  const keys1 = Object.keys(obj1);
-  const keys2 = Object.keys(obj2);
-  if (keys1.length !== keys2.length) {
+export function areObjectsEqual(obj1: Object, obj2: Object) {
+  const formToString = (json: Object) => {
+    return {
+      keys: Object.keys(json).sort().toString(),
+      values: Object.values(json).sort().toString(),
+    };
+  };
+
+  const OB1 = formToString(obj1);
+
+  const OB2 = formToString(obj2);
+
+  if (OB1.keys === OB2.keys && OB1.values === OB2.values) {
     return true;
+  } else {
+    return false;
   }
-
-  // Comparaison des valeurs
-  for (let key of keys1) {
-    if (obj1[key] !== obj2[key]) {
-      return true;
-    }
-  }
-
-  // Les objets sont identiques
-  return false;
 }

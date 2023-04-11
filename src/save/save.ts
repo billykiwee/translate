@@ -20,7 +20,7 @@ for (const v in filePath) {
 export function save() {
   getConfig();
 
-  upadteFiles("withoutCheck");
+  upadteFiles();
 
   createType();
 

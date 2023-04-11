@@ -1,7 +1,5 @@
 Here is all the languages supported by Qlee
 
-> All the translations is made by using @google-translate
-
 Afrikaans: "af",
 Albanian: "sq",
 Arabic: "ar",
@@ -105,3 +103,5 @@ Xhosa: "xh",
 Yiddish: "yi",
 Yoruba: "yo",
 Zulu: "zu"
+
+> All the translations is made by using @google-translate

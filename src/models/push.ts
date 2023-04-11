@@ -1,5 +1,5 @@
 import { config } from "../config/config.js";
-import { deleteTranslation } from "./delete.js";
+import { deleteTranslation, deleting } from "./delete.js";
 import { createTranslationFile } from "./generate.js";
 
 export async function push(jsonParser: string) {
@@ -17,6 +17,13 @@ export async function push(jsonParser: string) {
       console.log(`     - ${language.toUpperCase()} updated`);
     });
   }
+
   // If [lang].json is not in config languages
-  deleteTranslation();
+  deleteTranslation()
+    .then((files: any) => {
+      deleting(files);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 }

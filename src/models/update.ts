@@ -5,51 +5,56 @@ import { errorMsg, sucessMsg } from "../handlers/utils.js";
 import { LanguagesConfig } from "../interfaces/translate.js";
 import { push } from "./push.js";
 
-const json = fs.readFileSync(`src/language/default.json`).toString();
+export const upadteFiles = async () => {
+  const json = fs.readFileSync(`src/language/default.json`).toString();
 
-const jsonParser = JSON.parse(json);
+  const isConfigChanges = await configChanges();
 
-const configLanguages = config.languages;
-
-type CheckUpdate = "withCheck" | "withoutCheck";
-
-export const upadteFiles = async (withCheck: CheckUpdate) => {
-  if (withCheck === "withCheck") {
-    canUpdate(json)
-      .then((updateNeeded) => {
-        if (!updateNeeded) return;
-
-        push(jsonParser).then(() => {
-          sucessMsg(`     ✅ Translations updated`);
-        });
-      })
-      .catch((err) => {
-        errorMsg(err);
-      });
+  if (canUpdate() || isConfigChanges) {
+    push(JSON.parse(json)).then(() => {
+      sucessMsg(`     ✅ Translations updated`);
+    });
   }
+};
 
-  // If transaltions files has not languages in config
-  fs.readdir("src/translations/", (err, files) => {
-    files.forEach((file: any) => {
-      if (
-        !configLanguages.includes(file.replace(".json", "")) ||
-        configLanguages.includes(file.replace(".json", ""))
-      ) {
-        push(jsonParser).then(() => {
-          sucessMsg(`     ✅ Translations updated`);
-        });
+async function configChanges(): Promise<boolean> {
+  const configLanguages = config.languages;
+
+  return new Promise((resolve, reject) => {
+    return fs.readdir("src/translations/", (err, files) => {
+      if (err) {
+        reject(false);
+      }
+
+      const getFileWithoutExt: LanguagesConfig[] = files.map((f: any) =>
+        f.replace(".json", "")
+      );
+
+      const formToString = (array: LanguagesConfig[]) => {
+        return array.sort().toString();
+      };
+
+      const isDefaultLangChange =
+        formToString(configLanguages) !== formToString(getFileWithoutExt);
+
+      if (isDefaultLangChange) {
+        resolve(true);
       }
     });
   });
-};
+}
 
-export async function canUpdate(json: string) {
+export function canUpdate() {
+  const json = fs.readFileSync(`src/language/default.json`).toString();
+
   const defaultLangJson = fs
     .readFileSync(`src/translations/${config.defaultLang}.json`)
     .toString();
 
-  return (
-    config.translate &&
-    areObjectsEqual(JSON.parse(json), JSON.parse(defaultLangJson))
+  const isDefaultLangChange = !areObjectsEqual(
+    JSON.parse(json),
+    JSON.parse(defaultLangJson)
   );
+
+  return isDefaultLangChange;
 }

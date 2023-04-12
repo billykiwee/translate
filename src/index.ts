@@ -13,7 +13,7 @@ const getLanguage = (lang: string): any => {
   );
 };
 
-export function t(input: Translate): string | any {
+export function qlee(input: Translate): string | any {
   const regex = /\[(.*?)\]/g;
 
   const [getID, variables, language]: [string, any, LanguagesConfig] = [
@@ -46,6 +46,7 @@ export function t(input: Translate): string | any {
   }
 }
 
-console.log(
-  t({ id: "hello", variables: { name: "Billy", age: 21 }, language: "fr" })
+/* console.log(
+  qlee({ id: "hello", variables: { name: "Billy", age: 21 }, language: "fr" })
 );
+ */

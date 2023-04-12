@@ -13,26 +13,26 @@ export function deleteTranslation() {
   });
 }
 
-export function deleting(files: string[]) {
+function getLanguageToRemove(files: string[]) {
   const langaugesConfig = getConfig().languages;
 
   const languagesInDirectory = files.map((e: any) => e.replaceAll(".json", ""));
 
-  function getLanguageToRemove() {
-    let langRemoved: any[] = [];
+  let langRemoved: any[] = [];
 
-    langRemoved = langaugesConfig.filter(
-      (val: any) => !languagesInDirectory.includes(val)
-    );
+  langRemoved = langaugesConfig.filter(
+    (val: any) => !languagesInDirectory.includes(val)
+  );
 
-    langRemoved = languagesInDirectory.filter(
-      (val: any) => !langaugesConfig.includes(val)
-    );
+  langRemoved = languagesInDirectory.filter(
+    (val: any) => !langaugesConfig.includes(val)
+  );
 
-    return langRemoved;
-  }
+  return langRemoved;
+}
 
-  const langToRemove = getLanguageToRemove();
+export function deleting(files: string[]) {
+  const langToRemove = getLanguageToRemove(files);
 
   if (!langToRemove.length) {
     return;

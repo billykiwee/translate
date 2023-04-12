@@ -1,10 +1,10 @@
 {
   "you": "kfkk",
-  "hello": "Bonjour je suis [name], j'ai [age] ans",
+  "hello": "Bonjour je suis [name], j'ai [age] cool",
   "cool": "génial",
   "good": "bonder",
   "thanks": "mirci",
-  "please": "s'il te plaît",
+  "please": "s'il te plaît good",
   "sorry": "désolé",
   "yes": "oui",
   "no": "non",
@@ -33,6 +33,7 @@
   "copy": "photocopieuse",
   "paste": "collègue",
   "cut": "couper",
-  "undo": "annuler",
-  "redo": "refaire"
+  "redo": "refaire",
+  "jobs": "Ton travail est [jobs]",
+  "again": "Encore moi!"
 }

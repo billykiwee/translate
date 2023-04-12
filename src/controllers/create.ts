@@ -1,6 +1,6 @@
 import fs from "fs";
 import { getConfig } from "../config/config.js";
-import { formatJson } from "../utils/functions/formatJson.js";
+import { createDir } from "../config/setup.js";
 import { getVariables } from "../utils/functions/variables.js";
 
 const json = JSON.parse(
@@ -15,15 +15,23 @@ export function createType() {
 
   export interface Translate ${getVariables(json)} ;
     `;
-  fs.writeFileSync("./src/interfaces/translate.ts", formatJson(typeFile));
+
+  createDir("./src/interfaces/", [
+    {
+      path: `translate.ts`,
+      content: typeFile,
+    },
+  ]);
 }
 
 export async function createTranslationFile(
   transaltions: string,
   lang: string
 ) {
-  return fs.writeFileSync(
-    `./src/translations/${lang}.json`,
-    JSON.stringify(transaltions, null, 2)
-  );
+  createDir("./src/translations/", [
+    {
+      path: `${lang}.json`,
+      content: transaltions,
+    },
+  ]);
 }

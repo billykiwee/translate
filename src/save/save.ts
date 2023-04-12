@@ -57,7 +57,7 @@ export async function save() {
     getConfig();
 
     upadteFiles().then(() => {
-      sucessMsg("   ✅ Transations updated");
+      sucessMsg("   Transations updated");
     });
 
     createType();

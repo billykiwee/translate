@@ -44,16 +44,3 @@ export async function googleTranslate(jsonParser: any, lang: string) {
 
   return Object.assign({}, ...obj);
 }
-
-const json = {
-  bonjour: "ça va ? [name]",
-  comment: "how ?",
-};
-
-googleTranslate(JSON.stringify(json), "es")
-  .then((e) => {
-    console.log(e);
-  })
-  .catch((e) => {
-    errorMsg(e);
-  });

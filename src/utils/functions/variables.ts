@@ -1,5 +1,3 @@
-import { config } from "../config/config.js";
-
 export function getVariables(json: any) {
   return `
   {

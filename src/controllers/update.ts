@@ -1,19 +1,20 @@
-import { config } from "../config/config.js";
+import fs from "fs";
+import { getConfig } from "../config/config.js";
+import { sucessMsg } from "../utils/handlers/handlers.js";
+import { createTranslationFile } from "./create.js";
 import { deleteTranslation, deleting } from "./delete.js";
-import { createTranslationFile } from "./generate.js";
 
-export async function push(jsonParser: string) {
-  const lang = config.languages;
+export const upadteFiles = async () => {
+  const json = fs.readFileSync(`src/language/default.json`).toString();
+
+  const lang = getConfig().languages;
 
   for (const l in lang) {
     //const transaltions = await getT(lang[l]);
 
     const language = lang[l] as string;
 
-    async function pushTranslation() {
-      return createTranslationFile(jsonParser, language);
-    }
-    pushTranslation().then(() => {
+    createTranslationFile(JSON.parse(json), language).then(() => {
       console.log(`     - ${language.toUpperCase()} updated`);
     });
   }
@@ -26,4 +27,4 @@ export async function push(jsonParser: string) {
     .catch((error) => {
       console.error(error);
     });
-}
+};

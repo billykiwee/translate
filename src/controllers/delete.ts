@@ -1,5 +1,5 @@
 import fs from "fs";
-import { config } from "../config/config.js";
+import { getConfig } from "../config/config.js";
 
 export function deleteTranslation() {
   return new Promise((resolve, reject) => {
@@ -14,7 +14,7 @@ export function deleteTranslation() {
 }
 
 export function deleting(files: string[]) {
-  const langaugesConfig = config.languages;
+  const langaugesConfig = getConfig().languages;
 
   const languagesInDirectory = files.map((e: any) => e.replaceAll(".json", ""));
 

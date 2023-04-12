@@ -1,10 +1,11 @@
 import fs from "fs";
-import { config } from "./config/config.js";
-import { errorMsg } from "./handlers/utils.js";
+import { getConfig } from "./config/config.js";
+import { errorMsg, pendingMsg } from "./utils/handlers/handlers.js";
 import { LanguagesConfig, Translate } from "./interfaces/translate.js";
 import { save } from "./save/save.js";
 
 save();
+pendingMsg(`Translation is running...`);
 
 const getLanguage = (lang: string): any => {
   return JSON.parse(
@@ -22,9 +23,9 @@ export function t(input: Translate): string | any {
   ];
 
   try {
-    const getTranslattionJSON = getLanguage(language ?? config.defaultLang)[
-      getID
-    ];
+    const getTranslattionJSON = getLanguage(
+      language ?? getConfig().defaultLang
+    )[getID];
 
     if (getTranslattionJSON) {
       const replaceVariables = getTranslattionJSON.replace(
@@ -44,8 +45,7 @@ export function t(input: Translate): string | any {
     errorMsg(err);
   }
 }
-/* 
+
 console.log(
   t({ id: "hello", variables: { name: "Billy", age: 21 }, language: "fr" })
 );
- */

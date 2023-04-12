@@ -1,5 +1,5 @@
 import translate from "translate-google";
-import { errorMsg } from "../handlers/utils.js";
+import { errorMsg } from "../utils/handlers/handlers.js";
 
 export async function getTranslate(text: string, lang: string) {
   try {

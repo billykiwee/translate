@@ -1,5 +1,6 @@
 import fs from "fs";
 import { formatJson } from "../utils/functions/formatJson.js";
+import { getConfig } from "./config.js";
 
 interface Files {
   path: string;
@@ -25,3 +26,42 @@ export const createDir = (path: string, files?: Files[]) => {
     }
   });
 };
+
+createDir("qlee/config", [
+  {
+    path: `qlee.config.json`,
+    content: {
+      defaultLang: "fr",
+      languages: ["fr", "en"],
+      translate: true,
+    },
+  },
+]);
+
+createDir("qlee/", [
+  {
+    path: `default.lang.json`,
+    content: {
+      qlee: `Welcome to your default langauge ${
+        getConfig().defaultLang
+      } translation file.`,
+      variables:
+        "To put variables in your translation file, you only have to put his name in an array. Exemple: Welcome [name] to our app !",
+    },
+  },
+]);
+
+for (let i = 0; i < getConfig().languages.length; i++) {
+  createDir("qlee/translations", [
+    {
+      path: `${getConfig().languages[i]}.json`,
+      content: {
+        qlee: `Welcome to your ${getConfig().languages[
+          i
+        ]?.toUpperCase()} translation file.`,
+        variables:
+          "To put variables in your translation file, you only have to put his name in an array. Exemple: Welcome [name] to our app !",
+      },
+    },
+  ]);
+}

@@ -1,0 +1,4 @@
+{
+  "qlee": "Welcome to your default langauge fr translation file.",
+  "variables": "To put variables in your translation file, you only have to put his name in an array. Exemple: Welcome [name] to our app !"
+}

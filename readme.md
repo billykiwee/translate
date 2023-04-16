@@ -6,15 +6,17 @@ You will be able to translate easily
 
 Anywhere in your app, call the `t()` function like this exemple :
 
-    t({
-        id:"my-profil",
-        variables: {
-            name: "Billy",
-            age: 25,
-            job: "software egineer"
-        },
-        language: "en"
-    })
+```bash
+t({
+    id:"my-profil",
+    variables: {
+        name: "Billy",
+        age: 25,
+        job: "software egineer"
+    },
+    language: "en"
+})
+```
 
 You will get this outpout :
 
@@ -29,3 +31,7 @@ You can evidently create your own translations file with your own sentences and 
 At the `/transaltions` file, you will see all the languages `.json` you can translate your app with
 
 ![alt text](https://kiwee.site/wp-content/uploads/2023/04/Capture-decran-le-2023-04-09-a-21.13.21.png)
+
+```
+
+```

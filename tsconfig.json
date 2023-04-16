@@ -12,6 +12,6 @@
 
     "resolveJsonModule": true
   },
-  "include": ["src/**/*", "src/types/**/*", "src/language/**/*"],
+  "include": ["src/**/*", "src/types/**/*", "src/language/**/*", "qlee/**/*"],
   "exclude": ["node_modules"]
 }

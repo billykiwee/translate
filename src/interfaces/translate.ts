@@ -1,4 +1,4 @@
-export type LanguagesConfig = "fr" | "en" | "ru" | undefined;
+export type LanguagesConfig = "fr" | "en" | undefined;
 
 export interface Translate {
   id:
@@ -13,7 +13,6 @@ export interface Translate {
     | "no"
     | "help"
     | "home"
-    | "about"
     | "contact"
     | "settings"
     | "profile"
@@ -36,7 +35,6 @@ export interface Translate {
     | "copy"
     | "paste"
     | "cut"
-    | "undo"
     | "redo"
     | "jobs"
     | "again";

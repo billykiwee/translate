@@ -1,6 +1,6 @@
 {
   "you": "kfkk",
-  "hello": "Bonjour je suis [name], j'ai [age] cool",
+  "hello": "Bonjour je suis [name], j'ai [age] ",
   "cool": "génial",
   "good": "bonder",
   "thanks": "mirci",
@@ -10,7 +10,6 @@
   "no": "non",
   "help": "aide",
   "home": "accueil",
-  "about": "à propos",
   "contact": "contact [number]",
   "settings": "paramètres",
   "profile": "profil",

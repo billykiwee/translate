@@ -29,18 +29,19 @@ export const createDir = (path: string, files?: Files[]) => {
 
 createDir("qlee/config", [
   {
-    path: `qlee.config.json`,
-    content: {
-      defaultLang: "fr",
-      languages: ["fr", "en"],
-      translate: true,
-    },
+    path: `qlee.config.ts`,
+    content: `const config: Config = {
+        defaultLang: "fr",
+        languages: ["fr", "en"],
+        translate: true,
+    }
+    `,
   },
 ]);
 
-createDir("qlee/", [
+/* createDir("qlee/", [
   {
-    path: `default.lang.json`,
+    path: `default.${getConfig().defaultLang}.json`,
     content: {
       qlee: `Welcome to your default langauge ${
         getConfig().defaultLang
@@ -52,7 +53,7 @@ createDir("qlee/", [
 ]);
 
 for (let i = 0; i < getConfig().languages.length; i++) {
-  createDir("qlee/translations", [
+  createDir("qlee/languages", [
     {
       path: `${getConfig().languages[i]}.json`,
       content: {
@@ -64,4 +65,4 @@ for (let i = 0; i < getConfig().languages.length; i++) {
       },
     },
   ]);
-}
+} */

@@ -1,43 +1,7 @@
-export type LanguagesConfig = "fr" | "en" | undefined;
+export type LanguagesConfig = "fr" | "en" | "es" | undefined;
 
 export interface Translate {
-  id:
-    | "you"
-    | "hello"
-    | "cool"
-    | "good"
-    | "thanks"
-    | "please"
-    | "sorry"
-    | "yes"
-    | "no"
-    | "help"
-    | "home"
-    | "contact"
-    | "settings"
-    | "profile"
-    | "search"
-    | "submit"
-    | "cancel"
-    | "delete"
-    | "edit"
-    | "save"
-    | "next"
-    | "previous"
-    | "accept"
-    | "reject"
-    | "view"
-    | "download"
-    | "upload"
-    | "open"
-    | "close"
-    | "refresh"
-    | "copy"
-    | "paste"
-    | "cut"
-    | "redo"
-    | "jobs"
-    | "again";
+  id: "you" | "hello" | "cool" | "contact" | "jobs" | "again";
   variables?: { [key: string]: string | number };
   language?: LanguagesConfig;
 }

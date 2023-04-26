@@ -1,5 +1,9 @@
+import fs from "fs";
+
 import translate from "translate-google";
-import { errorMsg } from "../utils/handlers/handlers.js";
+import { getConfig } from "../config/config.js";
+import { createDir } from "../config/setup.js";
+import { pendingMsg, sucessMsg } from "../utils/handlers/handlers.js";
 
 export async function getTranslate(text: string, lang: string) {
   try {

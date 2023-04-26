@@ -46,7 +46,7 @@ export function qlee(input: Translate): string | any {
   }
 }
 
-/* console.log(
+console.log(
+  "lfdf",
   qlee({ id: "hello", variables: { name: "Billy", age: 21 }, language: "fr" })
 );
- */

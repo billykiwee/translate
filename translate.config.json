@@ -1,5 +1,5 @@
 {
   "defaultLang": "en",
-  "languages": ["fr", "en"],
+  "languages": ["fr", "en", "es"],
   "translate": true
 }

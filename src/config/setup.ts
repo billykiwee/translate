@@ -27,18 +27,6 @@ export const createDir = (path: string, files?: Files[]) => {
   });
 };
 
-createDir("qlee/config", [
-  {
-    path: `qlee.config.ts`,
-    content: `const config: Config = {
-        defaultLang: "fr",
-        languages: ["fr", "en"],
-        translate: true,
-    }
-    `,
-  },
-]);
-
 /* createDir("qlee/", [
   {
     path: `default.${getConfig().defaultLang}.json`,

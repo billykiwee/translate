@@ -5,6 +5,7 @@ export interface ConfigInt {
   defaultLang: string;
   languages: LanguagesConfig[];
   translate: boolean;
+  generate: boolean;
 }
 
 export const getConfig = (): ConfigInt => {

@@ -4,13 +4,28 @@ import { createDir } from "../config/setup.js";
 import { googleTranslate } from "../modules/translate.js";
 import { pendingMsg, sucessMsg } from "../utils/handlers/handlers.js";
 
+const config = getConfig();
+
 const args = process.argv.slice(2);
 
-if (args.includes("generate") || args.includes("g")) {
+interface Commands {
+  [key: string]: string[];
+}
+
+const commands: Commands = {
+  generate: ["generate", "g"],
+  translate: ["translate", "t"],
+};
+
+const cli = (cmd: string): boolean => {
+  return args.some((arg) => commands[cmd].includes(arg));
+};
+
+if (cli("generate") && config.generate) {
   generate();
 }
 
-if (args.includes("translate") || args.includes("t")) {
+if (cli("translate") && config.translate) {
   translations();
 }
 

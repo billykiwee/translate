@@ -1,5 +1,6 @@
 {
   "defaultLang": "en",
   "languages": ["fr", "en", "es"],
-  "translate": true
+  "translate": true,
+  "generate": true
 }

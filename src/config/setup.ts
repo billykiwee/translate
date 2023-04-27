@@ -2,6 +2,8 @@ import fs from "fs";
 import { formatJson } from "../utils/functions/formatJson.js";
 import { getConfig } from "./config.js";
 
+const config = getConfig();
+
 interface Files {
   path: string;
   content?: string | number | object | any[];
@@ -27,25 +29,35 @@ export const createDir = (path: string, files?: Files[]) => {
   });
 };
 
-/* createDir("qlee/", [
+createDir("qlee/config/private", [
   {
-    path: `default.${getConfig().defaultLang}.json`,
+    path: `google-translate.json`,
     content: {
-      qlee: `Welcome to your default langauge ${
-        getConfig().defaultLang
-      } translation file.`,
-      variables:
-        "To put variables in your translation file, you only have to put his name in an array. Exemple: Welcome [name] to our app !",
+      GOOGLE_TRANSLATE_PROJECT_ID: "XXXXXX",
+      GOOGLE_TRANSLATE_API_KEY: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    },
+  },
+]);
+createDir("qlee/config", [
+  {
+    path: `translate.config.json`,
+    content: {
+      defaultLang: "fr",
+      languages: ["fr", "en", "es"],
+      translate: true,
+      generate: true,
     },
   },
 ]);
 
-for (let i = 0; i < getConfig().languages.length; i++) {
-  createDir("qlee/languages", [
+const languages = config.languages;
+
+for (let i = 0; i < languages.length; i++) {
+  createDir(config["output-translations-files"], [
     {
-      path: `${getConfig().languages[i]}.json`,
+      path: `${languages[i]}.json`,
       content: {
-        qlee: `Welcome to your ${getConfig().languages[
+        qlee: `Welcome to your ${languages[
           i
         ]?.toUpperCase()} translation file.`,
         variables:
@@ -53,4 +65,15 @@ for (let i = 0; i < getConfig().languages.length; i++) {
       },
     },
   ]);
-} */
+}
+
+createDir("qlee", [
+  {
+    path: `default-${getConfig().defaultLang}.json`,
+    content: {
+      qlee: `This is your default language translation file. You choose: ${getConfig().defaultLang.toUpperCase()}.`,
+      variables:
+        "To put variables in your translation file, you only have to put his name in an array. Exemple: Welcome [name] to our app !",
+    },
+  },
+]);

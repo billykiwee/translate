@@ -1,7 +1,19 @@
 export type LanguagesConfig = "fr" | "en" | "es" | undefined;
 
+export type Variables = { [key: string]: string | number };
+
+export type Ids =
+  | "you"
+  | "hello"
+  | "cool"
+  | "contact"
+  | "jobs"
+  | "again"
+  | "good"
+  | "boy";
+
 export interface Translate {
-  id: "you" | "hello" | "cool" | "contact" | "jobs" | "again";
-  variables?: { [key: string]: string | number };
+  id: Ids;
+  variables?: Variables;
   language?: LanguagesConfig;
 }

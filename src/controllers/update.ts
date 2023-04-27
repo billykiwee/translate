@@ -8,6 +8,8 @@ import { deleteTranslation, deleting } from "./delete.js";
 export const upadteFiles = async () => {
   const json = fs.readFileSync(`src/language/default.json`).toString();
 
+  const defaultLang = getConfig().defaultLang;
+
   const lang = getConfig().languages;
 
   for (const l in lang) {
@@ -18,9 +20,11 @@ export const upadteFiles = async () => {
 
     const language = lang[l] as string;
 
-    createTranslationFile(JSON.parse(json), language).then(() => {
-      console.log(`     - ${language.toUpperCase()} updated`);
-    });
+    if (language === defaultLang) {
+      createTranslationFile(JSON.parse(json), language).then(() => {
+        console.log(`     - ${language.toUpperCase()} updated`);
+      });
+    }
   }
 
   // If [lang].json is not in config languages

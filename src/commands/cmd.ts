@@ -8,13 +8,12 @@ const config = getConfig();
 
 const args = process.argv.slice(2);
 
-interface Commands {
-  [key: string]: string[];
-}
+type cmdType = { [key: string]: string[] };
 
-const commands: Commands = {
+const commands: cmdType = {
   generate: ["generate", "g"],
   translate: ["translate", "t"],
+  delete: ["delete", "d"],
 };
 
 const cli = (cmd: string): boolean => {
@@ -22,14 +21,18 @@ const cli = (cmd: string): boolean => {
 };
 
 if (cli("generate") && config.generate) {
-  generate();
+  generate().then(() => {
+    sucessMsg("   Translations files generated");
+  });
 }
 
 if (cli("translate") && config.translate) {
-  translations();
+  translations().then(() => {
+    sucessMsg("   Translations files translated");
+  });
 }
 
-function generate() {
+async function generate() {
   const json = fs.readFileSync(`src/language/default.json`).toString();
 
   const languages = getConfig().languages;
@@ -44,7 +47,7 @@ function generate() {
       },
     ]);
 
-    console.log(`${languages[lang]?.toUpperCase()} generated`);
+    return console.log(`${languages[lang]?.toUpperCase()} generated`);
   }
 }
 
@@ -68,7 +71,7 @@ async function translations() {
         ]);
       })
       .then(() => {
-        console.log(`${lang?.toUpperCase()} translated`);
+        return console.log(`${lang?.toUpperCase()} translated`);
       });
   }
 }

@@ -2,6 +2,7 @@ import fs from "fs";
 import { getConfig } from "../config/config.js";
 import { createDir } from "../config/setup.js";
 import { getVariables } from "../utils/functions/variables.js";
+import { formatJson } from "../utils/functions/formatJson.js";
 
 const json = JSON.parse(
   fs.readFileSync(`src/language/default.json`).toString()
@@ -13,8 +14,16 @@ export function createType() {
     '" | "'
   )}"  | undefined;
 
-  export interface Translate ${getVariables(json)} ;
-    `;
+  export type Variables = { [key: string]: string | number };
+  
+  export type Ids = "${Object.keys(json).join('" | "')}";
+
+  export interface Translate {
+    id : Ids;
+    variables?: Variables,
+    language?: LanguagesConfig
+  };
+`;
 
   createDir("./src/interfaces/", [
     {

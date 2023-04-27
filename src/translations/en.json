@@ -1,9 +1,10 @@
 {
-  "you": "kfkk",
-  "hello": "Bonjour je suis [name], j'ai [age] ans ",
-  "cool": "génial",
+  "you": "the",
+  "hello": "Hello I am [name], I have [age] years old",
+  "cool": "awesome",
   "contact": "contact [number]",
-  "jobs": "Ton travail est [jobs]",
-  "again": "Encore moi!",
-  "good": "Super"
+  "jobs": "Your work is [jobs]",
+  "again": "Me again!",
+  "good": "Super",
+  "boy": "boy"
 }

@@ -3,6 +3,7 @@ import { getConfig } from "./config/config.js";
 import { errorMsg, pendingMsg } from "./utils/handlers/handlers.js";
 import { LanguagesConfig, Translate } from "./interfaces/translate.js";
 import { save } from "./save/save.js";
+import { createType } from "./controllers/create.js";
 
 save();
 pendingMsg(`Translation is running...`);
@@ -46,7 +47,4 @@ export function qlee(input: Translate): string | any {
   }
 }
 
-console.log(
-  "lfdf",
-  qlee({ id: "hello", variables: { name: "Billy", age: 21 }, language: "fr" })
-);
+console.log(qlee({ id: "jobs", variables: { jobs: "cool" }, language: "en" }));

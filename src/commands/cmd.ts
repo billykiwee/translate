@@ -61,7 +61,7 @@ async function translations() {
   for (const l in languages) {
     const lang = languages[l];
 
-    googleTranslate(JSON.parse(json), lang as string)
+    return googleTranslate(JSON.parse(json), lang as string)
       .then((translated) => {
         createDir("./src/translations", [
           {

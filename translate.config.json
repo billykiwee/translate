@@ -2,5 +2,6 @@
   "defaultLang": "fr",
   "languages": ["fr", "en", "es"],
   "translate": true,
-  "generate": true
+  "generate": true,
+  "output-translations-files": "i18n"
 }

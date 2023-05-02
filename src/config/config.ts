@@ -17,7 +17,7 @@ export interface ConfigInt {
 
 export const getConfig = (): ConfigInt => {
   const config = JSON.parse(
-    fs.readFileSync("translate.config.json").toString()
+    fs.readFileSync("qlee/config/translate.config.json").toString()
   );
   return config;
 };

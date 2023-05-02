@@ -1,7 +1,5 @@
 import fs from "fs";
 import { getConfig } from "../config/config.js";
-import { googleTranslate } from "../modules/translate.js";
-import { sucessMsg } from "../utils/handlers/handlers.js";
 import { createTranslationFile } from "./create.js";
 import { deleteTranslation, deleting } from "./delete.js";
 

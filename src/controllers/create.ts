@@ -1,8 +1,6 @@
 import fs from "fs";
 import { getConfig } from "../config/config.js";
-import { createDir } from "../config/setup.js";
-import { getVariables } from "../utils/functions/variables.js";
-import { formatJson } from "../utils/functions/formatJson.js";
+import { createDir } from "../utils/functions/createDir.js";
 
 const json = JSON.parse(
   fs.readFileSync(`src/language/default.json`).toString()

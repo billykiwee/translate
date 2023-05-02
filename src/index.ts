@@ -2,15 +2,15 @@ import fs from "fs";
 import { getConfig } from "./config/config.js";
 import { errorMsg, pendingMsg } from "./utils/handlers/handlers.js";
 import { LanguagesConfig, Translate } from "./interfaces/translate.js";
-import { save } from "./save/save.js";
-import { createType } from "./controllers/create.js";
+import { start } from "./controllers/start.js";
 
-save();
-pendingMsg(`Translation is running...`);
+const config = getConfig();
 
 const getLanguage = (lang: string): any => {
   return JSON.parse(
-    fs.readFileSync(`src/translations/${lang}.json`).toString()
+    fs
+      .readFileSync(config["output-translations-files"] + `/${lang}.json`)
+      .toString()
   );
 };
 
@@ -24,9 +24,9 @@ export function qlee(input: Translate): string | any {
   ];
 
   try {
-    const getTranslattionJSON = getLanguage(
-      language ?? getConfig().defaultLang
-    )[getID];
+    const getTranslattionJSON = getLanguage(language ?? config.defaultLang)[
+      getID
+    ];
 
     if (getTranslattionJSON) {
       const replaceVariables = getTranslattionJSON.replace(

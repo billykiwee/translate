@@ -1,10 +1,17 @@
 import fs from "fs";
 import { ConfigInt, getConfig } from "../config/config.js";
+import { LanguagesConfig } from "../interfaces/translate.js";
 import { createDir } from "../utils/functions/createDir.js";
 import { errorMsg } from "../utils/handlers/handlers.js";
 
-const json = JSON.parse(
-  fs.readFileSync(`src/language/default.json`).toString()
+export const defaultLanguageJSON = JSON.parse(
+  fs
+    .readFileSync(
+      `qlee/${getConfig()?.["output-translations-files"]}/default-${
+        getConfig()?.defaultLang
+      }.json`
+    )
+    .toString()
 );
 
 export function createType() {
@@ -18,7 +25,7 @@ export function createType() {
 
   export type Variables = { [key: string]: string | number };
   
-  export type Ids = "${Object.keys(json).join('" | "')}";
+  export type Ids = "${Object.keys(defaultLanguageJSON).join('" | "')}";
 
   export interface Translate {
     id : Ids;
@@ -36,14 +43,30 @@ export function createType() {
   }
 }
 
-export async function createTranslationFile(
-  transaltions: string,
-  lang: string
-) {
-  createDir("./src/translations/", [
+export async function cretateI18nFiles(lang: LanguagesConfig) {
+  if (lang === getConfig()?.defaultLang) {
+    createDir("qlee/" + getConfig()?.["output-translations-files"], [
+      {
+        path: `default-${lang}.json`,
+        content: {
+          qlee: `Welcome to your ${lang?.toUpperCase()} translation file.`,
+          variables:
+            "To put variables in your translation file, you only have to put his name in an array. Exemple: Welcome [name] to our app !",
+        },
+      },
+    ]);
+
+    return;
+  }
+
+  createDir("qlee/" + getConfig()?.["output-translations-files"], [
     {
       path: `${lang}.json`,
-      content: transaltions,
+      content: {
+        qlee: `Welcome to your ${lang?.toUpperCase()} translation file.`,
+        variables:
+          "To put variables in your translation file, you only have to put his name in an array. Exemple: Welcome [name] to our app !",
+      },
     },
   ]);
 }

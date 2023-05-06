@@ -1,0 +1,22 @@
+{
+  "greeting": "Bonjour, [name]!",
+  "question": "Comment allez-vous aujourd'hui, [name]?",
+  "farewell": "Au revoir, [name]!",
+  "error": "Une erreur s'est produite : [errorMessage].",
+  "success": "[operationName] a réussi!",
+  "failure": "[operationName] a échoué : [errorMessage].",
+  "welcomeBack": "Content de vous revoir, [name]!",
+  "passwordReset": "Votre mot de passe a été réinitialisé avec succès!",
+  "invalidCredentials": "Les informations d'identification que vous avez fournies sont invalides.",
+  "accountLocked": "Votre compte a été verrouillé en raison de trop nombreuses tentatives de connexion infructueuses.",
+  "forgotPassword": "Mot de passe oublié?",
+  "resetPassword": "Réinitialiser le mot de passe",
+  "notifications": "Vous avez [count] nouvelles [notificationType]!",
+  "noNotifications": "Aucune nouvelle notification.",
+  "newMessage": "Vous avez reçu un nouveau message de [sender]!",
+  "messageContent": "Le message est : [messageContent].",
+  "unreadMessages": "Vous avez [count] nouveaux messages non lus.",
+  "discountCode": "Utilisez le code [code] pour obtenir [discount]% de réduction sur votre prochain achat!",
+  "shippingConfirmation": "Votre commande a été expédiée et arrivera le [deliveryDate].",
+  "orderConfirmation": "Votre commande a été confirmée. Merci de votre achat, [name]!"
+}

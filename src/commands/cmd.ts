@@ -1,8 +1,8 @@
 import { getConfig } from "../config/config.js";
 import { sucessMsg } from "../utils/handlers/handlers.js";
-import { generateCLI } from "./cli/generate.cli.js";
-import { startCLI } from "./cli/start.cli.js";
-import { translateCLI } from "./cli/translate.cli.js";
+import { generateCLI } from "./cli/generate.js";
+import { startCLI } from "./cli/start.js";
+import { translateCLI } from "./cli/translate.js";
 
 const args = process.argv.slice(2);
 

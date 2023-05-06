@@ -7,7 +7,7 @@ import { pendingMsg } from "../../utils/handlers/handlers.js";
 export async function translateCLI() {
   const json = fs.readFileSync(`src/language/default.json`).toString();
 
-  const languages = getConfig().languages;
+  const languages = getConfig()?.languages || [];
 
   pendingMsg("Translations in progress...");
 

@@ -7,8 +7,11 @@ const json = JSON.parse(
 );
 
 export function createType() {
-  const typeFile = `
-  export type LanguagesConfig =  "${Object.values(getConfig().languages).join(
+  const configL = getConfig()?.languages;
+
+  if (configL) {
+    const typeFile = `
+  export type LanguagesConfig =  "${Object.values(configL).join(
     '" | "'
   )}"  | undefined;
 
@@ -23,12 +26,13 @@ export function createType() {
   };
 `;
 
-  createDir("./src/interfaces/", [
-    {
-      path: `translate.ts`,
-      content: typeFile,
-    },
-  ]);
+    createDir("./src/interfaces/", [
+      {
+        path: `translate.ts`,
+        content: typeFile,
+      },
+    ]);
+  }
 }
 
 export async function createTranslationFile(

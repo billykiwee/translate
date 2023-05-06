@@ -1,10 +1,8 @@
 import { getConfig } from "../config/config.js";
-import { pendingMsg, sucessMsg } from "../utils/handlers/handlers.js";
+import { sucessMsg } from "../utils/handlers/handlers.js";
 import { generateCLI } from "./cli/generate.cli.js";
 import { startCLI } from "./cli/start.cli.js";
 import { translateCLI } from "./cli/translate.cli.js";
-
-const config = getConfig();
 
 const args = process.argv.slice(2);
 
@@ -21,18 +19,16 @@ const cli = (cmd: string): boolean => {
 };
 
 if (cli("start")) {
-  startCLI().then(() => {
-    sucessMsg("   Translations files generated");
-  });
+  startCLI();
 }
 
-if (cli("generate") && config.generate) {
+if (cli("generate")) {
   generateCLI().then(() => {
     sucessMsg("   Translations files generated");
   });
 }
 
-if (cli("translate") && config.translate) {
+if (cli("translate")) {
   translateCLI().then(() => {
     sucessMsg("   Translations files translated");
   });

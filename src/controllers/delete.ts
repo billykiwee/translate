@@ -1,7 +1,15 @@
 import fs from "fs";
 import { getConfig } from "../config/config.js";
 
-const filePath = `qlee/${getConfig()["output-translations-files"]}`;
+export const qleeExists = await fs.promises.readdir("qlee");
+
+let outputFile: any;
+
+if (qleeExists) {
+  outputFile = getConfig()?.["output-translations-files"];
+}
+
+const filePath = `qlee/${outputFile}`;
 
 export function deleteTranslation() {
   return new Promise((resolve, reject) => {
@@ -16,18 +24,18 @@ export function deleteTranslation() {
 }
 
 function getLanguageToRemove(files: string[]) {
-  const langaugesConfig = getConfig().languages;
+  const langaugesConfig = getConfig()?.languages;
 
   const languagesInDirectory = files.map((e: any) => e.replaceAll(".json", ""));
 
-  let langRemoved: any[] = [];
+  let langRemoved: any[] | undefined = [];
 
-  langRemoved = langaugesConfig.filter(
+  langRemoved = langaugesConfig?.filter(
     (val: any) => !languagesInDirectory.includes(val)
   );
 
   langRemoved = languagesInDirectory.filter(
-    (val: any) => !langaugesConfig.includes(val)
+    (val: any) => !langaugesConfig?.includes(val)
   );
 
   return langRemoved;

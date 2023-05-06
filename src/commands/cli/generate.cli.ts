@@ -3,12 +3,12 @@ import { createDir } from "../../utils/functions/createDir.js";
 import { errorMsg } from "../../utils/handlers/handlers.js";
 
 export async function generateCLI() {
-  const languages = getConfig().languages;
+  const languages = getConfig()?.languages || [];
 
   for (let i = 0; i < languages.length; i++) {
     const cretateI18nFiles = async () => {
-      if (languages[i] === getConfig().defaultLang) {
-        createDir("qlee/" + getConfig()["output-translations-files"], [
+      if (languages[i] === getConfig()?.defaultLang) {
+        createDir("qlee/" + getConfig()?.["output-translations-files"], [
           {
             path: `default-${languages[i]}.json`,
             content: {
@@ -24,7 +24,7 @@ export async function generateCLI() {
         return;
       }
 
-      return createDir("qlee/" + getConfig()["output-translations-files"], [
+      return createDir("qlee/" + getConfig()?.["output-translations-files"], [
         {
           path: `${languages[i]}.json`,
           content: {

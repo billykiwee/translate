@@ -1,19 +1,25 @@
 import fs from "fs";
-import { getConfig } from "../config/config.js";
-import { createDir } from "../utils/functions/createDir.js";
-import { pendingMsg } from "../utils/handlers/handlers.js";
-import { createType } from "./create.js";
-import { deleting } from "./delete.js";
-import { generate } from "./generate.js";
+import { getConfig } from "../../config/config.js";
+import { createType } from "../../controllers/create.js";
+import { deleting } from "../../controllers/delete.js";
+import { createDir } from "../../utils/functions/createDir.js";
+import { pendingMsg } from "../../utils/handlers/handlers.js";
+import { generateCLI } from "./generate.cli.js";
 
-fs.watch(`qlee/config/translate.config.json`, configChange);
+export async function startCLI() {
+  pendingMsg("Qlee in running");
 
-export async function start() {
-  pendingMsg("Generate in progress...");
+  const qleeExists = await fs.promises.readdir("qlee");
+
+  if (qleeExists) {
+    return;
+  }
 
   createType();
-  await generate();
+  await generateCLI();
 }
+
+fs.watch(`qlee/config/translate.config.json`, configChange);
 
 async function configChange() {
   const i18nFiles = await fs.promises.readdir(
@@ -29,7 +35,7 @@ async function configChange() {
   if (languagesConfig !== getI18nFilesArray) {
     deleting(getI18nFilesArray);
 
-    await generate();
+    await generateCLI();
   } else {
     await output();
   }

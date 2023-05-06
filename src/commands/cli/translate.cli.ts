@@ -1,10 +1,10 @@
 import fs from "fs";
-import { getConfig } from "../config/config.js";
-import { googleTranslate } from "../modules/translate.js";
-import { createDir } from "../utils/functions/createDir.js";
-import { pendingMsg } from "../utils/handlers/handlers.js";
+import { getConfig } from "../../config/config.js";
+import { googleTranslate } from "../../modules/translate.js";
+import { createDir } from "../../utils/functions/createDir.js";
+import { pendingMsg } from "../../utils/handlers/handlers.js";
 
-export async function Translate() {
+export async function translateCLI() {
   const json = fs.readFileSync(`src/language/default.json`).toString();
 
   const languages = getConfig().languages;

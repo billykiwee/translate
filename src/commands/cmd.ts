@@ -1,8 +1,8 @@
 import { getConfig } from "../config/config.js";
-import { generate } from "../controllers/generate.js";
-import { start } from "../controllers/start.js";
-import { Translate } from "../controllers/translate.js";
 import { pendingMsg, sucessMsg } from "../utils/handlers/handlers.js";
+import { generateCLI } from "./cli/generate.cli.js";
+import { startCLI } from "./cli/start.cli.js";
+import { translateCLI } from "./cli/translate.cli.js";
 
 const config = getConfig();
 
@@ -14,7 +14,6 @@ const commands: cmdType = {
   start: ["start", "s"],
   generate: ["generate", "g"],
   translate: ["translate", "t"],
-  delete: ["delete", "d"],
 };
 
 const cli = (cmd: string): boolean => {
@@ -22,21 +21,19 @@ const cli = (cmd: string): boolean => {
 };
 
 if (cli("start")) {
-  pendingMsg(`Translation is running...`);
-
-  start().then(() => {
+  startCLI().then(() => {
     sucessMsg("   Translations files generated");
   });
 }
 
 if (cli("generate") && config.generate) {
-  generate().then(() => {
+  generateCLI().then(() => {
     sucessMsg("   Translations files generated");
   });
 }
 
 if (cli("translate") && config.translate) {
-  Translate().then(() => {
+  translateCLI().then(() => {
     sucessMsg("   Translations files translated");
   });
 }

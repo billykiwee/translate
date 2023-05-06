@@ -1,7 +1,5 @@
 import fs from "fs";
-import { getConfig } from "../config/config.js";
-
-export const qleeExists = await fs.promises.readdir("qlee");
+import { getConfig, qleeExists } from "../config/config.js";
 
 let outputFile: any;
 

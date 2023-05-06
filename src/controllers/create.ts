@@ -1,18 +1,20 @@
 import fs from "fs";
-import { ConfigInt, getConfig } from "../config/config.js";
+import { ConfigInt, getConfig, qleeExists } from "../config/config.js";
 import { LanguagesConfig } from "../interfaces/translate.js";
 import { createDir } from "../utils/functions/createDir.js";
 import { errorMsg } from "../utils/handlers/handlers.js";
 
-export const defaultLanguageJSON = JSON.parse(
-  fs
-    .readFileSync(
-      `qlee/${getConfig()?.["output-translations-files"]}/default-${
-        getConfig()?.defaultLang
-      }.json`
+export const defaultLanguageJSON = qleeExists
+  ? JSON.parse(
+      fs
+        .readFileSync(
+          `qlee/${getConfig()?.["output-translations-files"]}/default-${
+            getConfig()?.defaultLang
+          }.json`
+        )
+        .toString()
     )
-    .toString()
-);
+  : null;
 
 export function createType() {
   const configL = getConfig()?.languages;

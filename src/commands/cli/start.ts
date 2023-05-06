@@ -1,4 +1,5 @@
-import fs from "fs";
+import { debug } from "console";
+import fs, { rename } from "fs";
 import { ConfigInt, getConfig } from "../../config/config.js";
 import { createConfig, createType } from "../../controllers/create.js";
 import { deleting } from "../../controllers/delete.js";
@@ -30,24 +31,26 @@ if (qleeExists) {
 }
 
 async function configChange() {
+  const config = getConfig();
+
   fs.readdir(
-    `qlee/${getConfig()?.["output-translations-files"]}`,
-    (err, files) => {
+    `qlee/${config?.["output-translations-files"]}`,
+    async (err, files) => {
       if (err) throw err;
 
       const getDefaultLang = files.find((file) => file.includes("default"));
-
-      console.log(getDefaultLang);
 
       if (getDefaultLang) {
         fs.rename(
           `qlee/${
             getConfig()?.["output-translations-files"]
           }/${getDefaultLang}`,
-          `default-${getConfig()?.defaultLang}.json`,
-          (err) => {
-            if (err) throw err;
-          }
+
+          `qlee/${getConfig()?.["output-translations-files"]}/default-${
+            getConfig()?.defaultLang
+          }.json`,
+
+          (err) => {}
         );
       }
     }
@@ -58,7 +61,8 @@ async function configChange() {
   );
 
   const getI18nFilesArray = i18nFiles
-    .map((file) => file.replace(".json", "").replace("default-", ""))
+    .filter((file) => !file.includes("default-"))
+    .map((file) => file.replace(".json", ""))
     .sort();
 
   const languagesConfig = getConfig()?.languages.sort();
@@ -66,7 +70,7 @@ async function configChange() {
   if (languagesConfig !== getI18nFilesArray) {
     deleting(getI18nFilesArray);
 
-    await generateCLI();
+    //await generateCLI();
   } else {
     await createConfig();
   }

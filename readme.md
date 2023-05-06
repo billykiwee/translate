@@ -26,8 +26,6 @@ You will get this outpout :
 
 ## CLIs
 
----
-
 ### **Start**
 
 ```

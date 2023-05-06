@@ -1,4 +1,4 @@
-export type LanguagesConfig = "fr" | "en" | undefined;
+export type LanguagesConfig = "fr" | "en" | "es" | undefined;
 
 export type Variables = { [key: string]: string | number };
 

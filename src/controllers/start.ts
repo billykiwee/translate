@@ -1,35 +1,38 @@
 import fs from "fs";
 import { getConfig } from "../config/config.js";
-import { configChanged } from "../save/save.js";
 import { createDir } from "../utils/functions/createDir.js";
+import { pendingMsg } from "../utils/handlers/handlers.js";
 import { createType } from "./create.js";
 import { deleting } from "./delete.js";
 import { generate } from "./generate.js";
 
-export async function start() {
-  // const qlee = await fs.promises.readdir("qlee").catch(() => []);
+fs.watch(`qlee/config/translate.config.json`, configChange);
 
-  // const isConfigChanged = await configChanged();
+export async function start() {
+  pendingMsg("Generate in progress...");
 
   createType();
-
   await generate();
-
-  await output();
 }
-
-fs.watch(`qlee/config/translate.config.json`, configChange);
 
 async function configChange() {
   const i18nFiles = await fs.promises.readdir(
     `qlee/${getConfig()["output-translations-files"]}`
   );
 
-  console.log(i18nFiles);
+  const getI18nFilesArray = i18nFiles
+    .map((file) => file.replace(".json", "").replace("default-", ""))
+    .sort();
 
-  deleting(i18nFiles.filter((file) => !file.includes("default")));
+  const languagesConfig = getConfig().languages.sort();
 
-  await generate();
+  if (languagesConfig !== getI18nFilesArray) {
+    deleting(getI18nFilesArray);
+
+    await generate();
+  } else {
+    await output();
+  }
 }
 
 async function output() {

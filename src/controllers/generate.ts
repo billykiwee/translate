@@ -2,17 +2,13 @@ import { getConfig } from "../config/config.js";
 import { createDir } from "../utils/functions/createDir.js";
 import { errorMsg, pendingMsg } from "../utils/handlers/handlers.js";
 
-const config = getConfig();
-
 export async function generate() {
-  const languages = config.languages;
-
-  pendingMsg("Generate in progress...");
+  const languages = getConfig().languages;
 
   for (let i = 0; i < languages.length; i++) {
     const cretateI18nFiles = async () => {
-      if (languages[i] === config.defaultLang) {
-        createDir("qlee/" + config["output-translations-files"], [
+      if (languages[i] === getConfig().defaultLang) {
+        createDir("qlee/" + getConfig()["output-translations-files"], [
           {
             path: `default-${languages[i]}.json`,
             content: {
@@ -28,7 +24,7 @@ export async function generate() {
         return;
       }
 
-      return createDir("qlee/" + config["output-translations-files"], [
+      return createDir("qlee/" + getConfig()["output-translations-files"], [
         {
           path: `${languages[i]}.json`,
           content: {

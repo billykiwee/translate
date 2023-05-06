@@ -24,6 +24,47 @@ You will get this outpout :
 
 ### How it works ? ⚙️
 
+## CLIs
+
+---
+
+### **Start**
+
+```
+$ npm run qlee start || s
+```
+
+Allows you to start a new project.
+
+File created at runtime:
+
+- config: `qlee.config.json` file which allows you to configure the module
+- i18n: Folder containing all the language files `[language].json` and the default language `default-[language].json`
+
+### **Generate**
+
+```
+$ npm run qlee generate || g
+```
+
+Allows to generate the i18n files configured in `qlee.config.json` by the user.
+
+During the execution :
+
+- Creation and/or deletion of languages ​​not appearing in the configured i18n
+
+### **Translate**
+
+```
+$ npm run qlee translate || you
+```
+
+Allows translating i18n files from the application's default `default-[language].json` language file in `qlee.config.json`.
+
+During the execution :
+
+- Creation and/or deletion of languages ​​not appearing in the configured i18n
+
 Everytime you update your `language.json` file, @Translate will update your translations files according to your languages you setup at your `translations.config.js`
 
 You can evidently create your own translations file with your own sentences and words !

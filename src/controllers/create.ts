@@ -78,12 +78,6 @@ export async function createConfig() {
     defaultLang: "en",
     languages: ["en", "fr", "es"],
     "output-translations-files": "i18n",
-    translation: {
-      "google-translate": {
-        GOOGLE_TRANSLATE_PROJECT_ID: "env",
-        GOOGLE_TRANSLATE_API_KEY: "env",
-      },
-    },
   };
 
   createDir("qlee/config", [

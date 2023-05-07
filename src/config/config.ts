@@ -6,12 +6,6 @@ export const qleeExists = fs.existsSync("qlee");
 export interface ConfigInt {
   defaultLang: string;
   languages: LanguagesConfig[];
-  translation: {
-    "google-translate": {
-      GOOGLE_TRANSLATE_PROJECT_ID: string;
-      GOOGLE_TRANSLATE_API_KEY: string;
-    };
-  };
   "output-translations-files": string;
 }
 
